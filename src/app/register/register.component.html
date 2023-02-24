@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="form-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Register</h2>
+      <div class="form-group">
+        <input type="text" #full_name placeholder="Full Name" formControlName="fullName"
+               (blur)="nameValidator()">
+        <span class="errors" id="full-name-errors">{{fullNameErrors}}</span>
+      </div>
+      <div class="form-group">
+        <input type="email" #email placeholder="Email" formControlName="email" (blur)="emailValidator()">
+        <span class="errors" id="email-errors">{{emailErrors}}</span>
+      </div>
+      <div class="form-group">
+        <input type="password" #password placeholder="Password" formControlName="password"
+               (blur)="passWordValidator()">
+        <span class="errors" id="password-errors" [innerHTML]="passwordErrors"></span>
+      </div>
+      <div class="form-group">
+        <input type="password" #c_password placeholder="Confirm Password" formControlName="confirmPassword"
+               (blur)="confirmPassWordValidator()">
+        <span class="errors" id="confirm-password-errors">{{c_passwordErrors}}</span>
+      </div>
+      <button class="btn" type="submit">Register</button>
+    </form>
+    <p>Already have an account?
+      <button class="btn">Log in</button>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+body {
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 15px;
+  width: 900px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  margin: 50px;
+  padding: 30px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+form {
+  margin: 50px;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.login-form {
+  display: block;
+}
+
+.register-form {
+  display: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5; /* adjust opacity as desired */
+  cursor: default;
+  /* any other styles to make the button appear disabled */
+}
+
+.btn:not(:disabled):hover {
+  background-color: #fff;
+  color: #007bff;
+  border: #007bff 2px solid;
+}
+
+.btn:disabled {
+  background-color: gray;
+  color: #fff;
+  transition: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.errors {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+input {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+}
