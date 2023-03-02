@@ -3,17 +3,21 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Angular": {
+    "dotbot": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "dotbot",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular",
+            "outputPath": "dist/dotbot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -47,7 +51,11 @@
             },
             "development": {
               "buildOptimizer": false,
-              "optimization": false,
+              "optimization": {
+                "scripts": false,
+                "styles": false,
+                "fonts": false
+              },
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
@@ -58,19 +66,19 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dotbot:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "Angular:build:production"
-            },
-            "development": {
-              "browserTarget": "Angular:build:development"
+              "browserTarget": "dotbot:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular:build"
+            "browserTarget": "dotbot:build"
           }
         },
         "test": {
@@ -94,7 +102,5 @@
       }
     }
   },
-  "cli": {
-    "analytics": false
-  }
+  "defaultProject": "dotbot"
 }
