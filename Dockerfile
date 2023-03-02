@@ -11,8 +11,14 @@ rm -rf /var/lib/apt/lists/*
 ARG NODE_ENV=local
 ENV NODE_ENV $NODE_ENV
 WORKDIR /app
+
+# take advantage of cached Docker layers
+COPY package*.json ./
+RUN npm install --location=global npm && npm install
+
 COPY . .
-RUN npm install
-EXPOSE 4200
 RUN npm run build
+
+EXPOSE 3000
+
 CMD ["bash", "./docker/run.sh"]
