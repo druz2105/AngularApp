@@ -1,30 +1,89 @@
-<div class="container">
-  <div class="form-container">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <h2>Register</h2>
-      <div class="form-group">
-        <input type="text" #full_name placeholder="Full Name" formControlName="fullName"
-               (blur)="nameValidator()">
-        <span class="errors" id="full-name-errors">{{fullNameErrors}}</span>
-      </div>
-      <div class="form-group">
-        <input type="email" #email placeholder="Email" formControlName="email" (blur)="emailValidator()">
-        <span class="errors" id="email-errors">{{emailErrors}}</span>
-      </div>
-      <div class="form-group">
-        <input type="password" #password placeholder="Password" formControlName="password"
-               (blur)="passWordValidator()">
-        <span class="errors" id="password-errors" [innerHTML]="passwordErrors"></span>
-      </div>
-      <div class="form-group">
-        <input type="password" #c_password placeholder="Confirm Password" formControlName="confirmPassword"
-               (blur)="confirmPassWordValidator()">
-        <span class="errors" id="confirm-password-errors">{{c_passwordErrors}}</span>
-      </div>
-      <button class="btn" type="submit">Register</button>
-    </form>
-    <p>Already have an account?
-      <button class="btn">Log in</button>
-    </p>
+<app-headers></app-headers>
+<div class="container justify-content-center align-content-center">
+  <div class="row m-5 no-gutters shadow-lg">
+    <div class="col-md-6 d-none d-md-block">
+      <img src="assets/images/side_reg.avif" class="img-fluid" style="min-height:100%;" alt="Register Form"/>
+    </div>
+    <div class="col-md-6 bg-white p-5">
+      <h1 style="color: black; align-content: center">Register Form</h1>
+      <form (ngSubmit)="registerForm.valid && validateRegister(registerForm)" #registerForm="ngForm">
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <input type="text" id="firstName" name="first name" class="form-control" [(ngModel)]="model.firstName"
+                     #firstName="ngModel"
+                     required/>
+              <label class="form-label" for="firstName">First name</label>
+            </div>
+            <div>
+          <span class="text-danger" *ngIf="(firstName.touched || registerForm.submitted) &&
+          firstName.errors?.['required']">First Name is required !</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <input type="text" id="lastName" name="last name" class="form-control" [(ngModel)]="model.lastName"
+                     #lastName="ngModel"
+                     required/>
+              <label class="form-label" for="lastName">Last name</label>
+            </div>
+            <div>
+          <span class="text-danger" *ngIf="(lastName.touched || registerForm.submitted) &&
+          lastName.errors?.['required']">Last Name is required !</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email input -->
+        <div class="row mb-4">
+          <div>
+            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="model.email"
+                   #email="ngModel"
+                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
+            <label class="form-label" for="email">Email address</label>
+
+          </div>
+          <div>
+         <span class="text-danger" *ngIf="(email.touched || registerForm.submitted) &&
+         email.errors?.['required']">Email is required !</span>
+            <span class="text-danger" *ngIf="(email.touched || registerForm.submitted) &&
+         email.errors?.['pattern']">Please provide a valid email address !</span>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="form-outline">
+            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="model.password"
+                   #password="ngModel"
+                   required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d-+_!@#$%^&*.,?]{8,}$"/>
+            <label class="form-label" for="password">Password</label>
+          </div>
+          <div>
+          <span class="text-danger" *ngIf="(password.touched || registerForm.submitted) &&
+          password.errors?.['required']">Password is required !</span>
+            <span class="text-danger" *ngIf="(password.touched || registerForm.submitted) &&
+          password.errors?.['pattern']">Please provide a valid password! </span>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="form-outline">
+            <input type="password" id="cPassword" name="confirm password" class="form-control"
+                   [(ngModel)]="model.confirmPassword"
+                   #confirmPassword="ngModel"/>
+            <label class="form-label" for="cPassword">Confirm Password</label>
+          </div>
+          <label>
+          <span class="text-danger" *ngIf="(confirmPassword.touched || registerForm.submitted) &&
+          (!matchPassword())">Password and Confirm Password not matching!</span>
+          </label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+
+      </form>
+    </div>
+
   </div>
 </div>

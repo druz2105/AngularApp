@@ -43,7 +43,7 @@
 .bottom-section {
   height: 500px;
   background-size: cover;
-  background: linear-gradient(to bottom, #010916, #1d5f9f) center;
+  background: linear-gradient(to bottom, #1d5f9f, #010916) center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,7 @@
 
 .bottom-content {
   padding: 50px;
-  color: white;
+  color:  #CAB9D5;
   text-align: center;
 }
 
