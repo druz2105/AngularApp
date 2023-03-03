@@ -1,6 +1,6 @@
 .hero {
   height: 500px;
-  background-image: url('src/assets/images/bg-image.jpg');
+  background-image: url('/assets/images/bg-image.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -8,17 +8,9 @@
   align-items: center;
 }
 
-.hero-cp {
-  height: 500px;
-  background-image: url('src/assets/images/bg-image.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .hero-content {
+  padding: 50px;
   color: white;
   text-align: center;
 }
@@ -45,4 +37,27 @@
 
 .btn:hover {
   background-color: #FF9800;
+}
+
+
+.bottom-section {
+  height: 500px;
+  background-size: cover;
+  background: linear-gradient(to bottom, #010916, #1d5f9f) center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.bottom-content {
+  padding: 50px;
+  color: white;
+  text-align: center;
+}
+
+
+.bottom-content p {
+  font-size: 24px;
+  margin-bottom: 40px;
 }

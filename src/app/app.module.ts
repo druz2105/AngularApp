@@ -5,20 +5,20 @@ import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
 
 import {AppComponent} from './app.component';
 import {HeadersComponent} from './headers/headers.component';
-import {FootersComponent} from './footers/footers.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterLink, RouterOutlet} from "@angular/router";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadersComponent,
-    FootersComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

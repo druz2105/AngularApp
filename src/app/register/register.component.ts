@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {environment} from 'src/constants/environments';
+import {AppConstants} from 'src/constants/app.constants';
 
 
 @Component({
@@ -101,7 +103,7 @@ export class RegisterComponent {
       'password': this.password?.value
 
     }
-    this.http.post('http://127.0.0.1:8000/api/v1/register/ ', registerData).subscribe(
+    this.http.post(environment.rooturl+ AppConstants.REGISTER, registerData).subscribe(
       (response) => {
         // API call was successful, redirect to another page
         this.router.navigate(['/login']);
