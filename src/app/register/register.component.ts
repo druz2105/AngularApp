@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
   validateRegister(form: NgForm) {
-    this.usersAPI.callRegisterAPI(this.model).subscribe(
+    this.usersAPI.registerAPI(this.model).subscribe(
       (response) => {
         // API call was successful, redirect to another page
         this.router.navigate(['/login']);

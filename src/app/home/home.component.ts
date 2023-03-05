@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
 import {Router} from "@angular/router";
+import {UserDetail} from "../../models/user.models";
+import {AuthService} from "../../services/auth.service";
 import {UserAPIServices} from "../../services/user.services";
 
 @Component({
@@ -12,42 +12,29 @@ import {UserAPIServices} from "../../services/user.services";
 })
 export class HomeComponent implements OnInit {
 
-  private readonly VERIFY_TOKEN_URL = 'verify/';
-  private readonly REFRESH_TOKEN_URL = 'refresh/';
+  private panelName: string = '';
 
-  constructor(private http: HttpClient, private router: Router, private userAPIServices: UserAPIServices) {
+  user = new UserDetail();
+
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices) {
   }
 
-  private validateAccessToken(token: string) {
-    return this.userAPIServices.callVerifyAPI(token).subscribe(
-      (data) => {
-      },
-      error => {
-        this.refreshToken()
-      }
-    )
-  }
-
-  private refreshToken(): void {
-    const refresh_token = window.localStorage.getItem('refresh_token');
-    if (!refresh_token) {
-      this.router.navigate(['/login'])
-    } else {
-      this.userAPIServices.callRefreshAPI(refresh_token).subscribe(response => {
-        window.localStorage.setItem('access_token', response.access);
-        window.localStorage.setItem('refresh_token', response.refresh);
-      }, error => {
-        this.router.navigate(['/login'])
-      });
-    }
-  }
 
   ngOnInit() {
-    const token = window.localStorage.getItem('access_token')
+    const token = window.localStorage.getItem('accessToken')
     if (token) {
-      this.validateAccessToken(token)
+      this.authService.validateAccessToken(token)
     } else {
       this.router.navigate(['/login'])
     }
+
+  }
+
+  get getPanelName() {
+    return this.panelName;
+  }
+
+  setPanelName(panelName: string) {
+    this.panelName = panelName;
   }
 }

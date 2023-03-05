@@ -37,11 +37,12 @@ export class LoginComponent implements OnInit {
 
 
   validateLogin(form: NgForm) {
-    this.usersAPI.callLoginAPI(this.model).subscribe(
+    this.usersAPI.loginAPI(this.model).subscribe(
       (response) => {
         // API call was successful, redirect to another page
-        window.localStorage.setItem('access_token', response.access);
-        window.localStorage.setItem('refresh_token', response.refresh);
+        window.localStorage.setItem('accessToken', response.access);
+        window.localStorage.setItem('refreshToken', response.refresh);
+        window.localStorage.setItem('userId', response.userId);
         this.router.navigate(['/home'])
       },
       (error) => {

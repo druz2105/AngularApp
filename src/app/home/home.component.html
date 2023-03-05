@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div class="main-content" style="height: 88vh">
+  <!-- User data -->
+  <div class="container" *ngIf="getPanelName==='dashboard'">
+    <div class="welcome-msg pt-3 pb-4">
+      <h1 (click)="setPanelName('userprofile')"
+          style="color:#26579c;cursor: pointer;">{{user.firstName}} {{user.lastName}}</h1>
+      <p>Logged in as {{user.email}} </p>
+    </div>
+  </div>
+</div>
+<!-- //content -->
+<!-- main content end-->
