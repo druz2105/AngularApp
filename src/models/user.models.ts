@@ -3,16 +3,14 @@ export class UserRegister {
   public firstName: string;
   public lastName: string;
   public email: string;
-  public confirmEmail?: string;
   public password: string;
   public confirmPassword?: string;
 
 
-  constructor(firstName?: string, lastName?: string, email?: string, password?: string, confirmPassword?: string, confirmEmail?: string) {
+  constructor(firstName?: string, lastName?: string, email?: string, password?: string, confirmPassword?: string) {
     this.firstName = firstName || '';
     this.lastName = lastName || '';
     this.email = email || '';
-    this.confirmEmail = confirmEmail || '';
     this.password = password || '';
     this.confirmPassword = confirmPassword || '';
   }

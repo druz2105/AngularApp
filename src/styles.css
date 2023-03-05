@@ -5,3 +5,14 @@ body, html {
   min-height: 100vh;
 
 }
+
+.error-snackbar {
+  background-color: #f44336; /* red */
+  color: white;
+}
+
+.success-snackbar {
+  background-color: #4caf50; /* green */
+  color: white;
+}
+

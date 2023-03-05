@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
-import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from './app.component';
 import {HeadersComponent} from './headers/headers.component';
@@ -10,7 +11,9 @@ import {RegisterComponent} from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterLink, RouterOutlet} from "@angular/router";
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SnakBarConstants} from "../constants/snakbar.constants";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeadersComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +32,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     RouterLink,
     RouterOutlet,
-    MatSnackBarModule
+    MatSnackBarModule,
+    BrowserAnimationsModule
   ],
-  providers: [MatSnackBar],
+  providers: [MatSnackBar, SnakBarConstants],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {NgForm, FormsModule} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserRegister} from "../../models/user.models";
 import {UserAPIServices} from "src/services/user.services";
+import {SnakBarConstants} from "../../constants/snakbar.constants";
 
 
 @Component({
@@ -12,15 +12,16 @@ import {UserAPIServices} from "src/services/user.services";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   model = new UserRegister();
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar, private usersAPI: UserAPIServices) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: SnakBarConstants, private usersAPI: UserAPIServices) {
   }
 
-  matchEmail() {
-    return this.model.email === this.model.confirmEmail
+  ngOnInit() {
+    window.localStorage.clear();
+    window.sessionStorage.clear();
   }
 
   matchPassword() {
@@ -28,19 +29,14 @@ export class RegisterComponent {
   }
 
   validateRegister(form: NgForm) {
-    this.usersAPI.validateLoginDetails(this.model).subscribe(
+    this.usersAPI.callRegisterAPI(this.model).subscribe(
       (response) => {
         // API call was successful, redirect to another page
         this.router.navigate(['/login']);
       },
       (error) => {
-        // API call failed, display error message
         console.error(error);
-        this.snackBar.open('Error: ' + error.message, 'Close', {
-          duration: 5000,
-          verticalPosition: 'top'
-        });
-        // You can display the error message in the template or using a toast notification library
+        this.snackBar.snackBarError(error)
       }
     );
   }

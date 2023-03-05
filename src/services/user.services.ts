@@ -1,31 +1,42 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {UserRegister} from "src/models/user.models";
-import {Observable, Subject} from 'rxjs';
+import {UserLogin, UserRegister} from "src/models/user.models";
 import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
+import {LoginAPIResponse} from 'src/services/user.get.services';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAPIServices {
 
+  private readonly VERIFY_TOKEN_URL = 'verify/';
+  private readonly REFRESH_TOKEN_URL = 'refresh/';
+
   constructor(private http: HttpClient) {
 
   }
 
-  createRegisterData(userData: UserRegister) {
-    return {
-      "email": userData.email,
-      "first_name": userData.firstName,
-      "last_name": userData.lastName,
-      "password": userData.password,
-    }
+  callRegisterAPI(userData: UserRegister) {
+    // const registerData = this.createRegisterData(userData)
+    return this.http.post(environment.rooturl + AppConstants.REGISTER, userData)
   }
 
-  validateLoginDetails(userData: UserRegister) {
-    const registerData = this.createRegisterData(userData)
-    return this.http.post(environment.rooturl + AppConstants.REGISTER, registerData)
+  callLoginAPI(loginData: UserLogin) {
+    return this.http.post<LoginAPIResponse>(environment.rooturl + AppConstants.LOGIN, loginData)
+  }
+
+  callVerifyAPI(token: string) {
+    return this.http.post(environment.rooturl + this.VERIFY_TOKEN_URL, {
+      'token': token
+    })
+  }
+
+  callRefreshAPI(refresh_token: string) {
+    return this.http.post<LoginAPIResponse>(environment.rooturl + this.REFRESH_TOKEN_URL, {
+      refresh: refresh_token
+    })
   }
 
 }
