@@ -7,13 +7,14 @@ import {RegisterComponent} from './register/register.component';
 import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";
+import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [CheckAuthentication]},
+  {path: 'login', component: LoginComponent, canActivate: [CheckAuthentication]},
+  {path: 'register', component: RegisterComponent, canActivate: [CheckAuthentication]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthActivateRouteGuard]},
 ];
 
 

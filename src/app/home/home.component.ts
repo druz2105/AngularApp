@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {UserDetail} from "../../models/user.models";
 import {AuthService} from "../../services/auth.service";
 import {UserAPIServices} from "../../services/user.services";
+import {customLocalStorage} from "../../helpers/custom.storage";
 
 @Component({
   selector: 'dotbot-home',
@@ -12,22 +13,19 @@ import {UserAPIServices} from "../../services/user.services";
 })
 export class HomeComponent implements OnInit {
 
-  private panelName: string = '';
+  private panelName: string = 'dashboard';
 
   user = new UserDetail();
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: customLocalStorage) {
   }
 
 
   ngOnInit() {
-    const token = window.localStorage.getItem('accessToken')
-    if (token) {
-      this.authService.validateAccessToken(token)
-    } else {
-      this.router.navigate(['/login'])
+    this.authService.validateData()
+    if (this.customLocalStore.getSessionStorage('userDetails')){
+      this.user = JSON.parse(this.customLocalStore.getSessionStorage('userDetails')!)
     }
-
   }
 
   get getPanelName() {

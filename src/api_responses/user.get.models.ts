@@ -2,10 +2,12 @@ export interface LoginAPIResponse {
   access: string;
   refresh: string;
   userId: string;
+  firstName: string;
+  lastName: string;
 }
 
 
-export interface UserDetail {
+export interface GetUserDetailAPIResponse {
   "id": number
   "email": string,
   "firstName": string,

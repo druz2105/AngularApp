@@ -12,7 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {SnakBarConstants} from "../constants/snakbar.constants";
+import {CustomSnakbar} from "../helpers/custom.snakbar";
 import {HomeComponent} from './home/home.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
@@ -20,6 +20,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCardModule} from "@angular/material/card";
 import {AuthService} from "../services/auth.service";
+import {customLocalStorage} from "../helpers/custom.storage";
+import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import {AuthService} from "../services/auth.service";
     MatExpansionModule,
     MatCardModule
   ],
-  providers: [MatSnackBar, SnakBarConstants, AuthService],
+  providers: [MatSnackBar, CustomSnakbar, AuthService, customLocalStorage, AuthActivateRouteGuard, CheckAuthentication],
   bootstrap: [AppComponent]
 })
 export class AppModule {

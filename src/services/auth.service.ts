@@ -1,8 +1,9 @@
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../constants/environments";
-import {LoginAPIResponse} from "../models/user.get.models";
+import {LoginAPIResponse} from "../api_responses/user.get.models";
 import {Injectable} from "@angular/core";
+import {customLocalStorage} from "../helpers/custom.storage";
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthService {
   private readonly REFRESH_TOKEN_URL = 'refresh/';
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private customLocalStore: customLocalStorage) {
   }
 
 
@@ -40,18 +41,25 @@ export class AuthService {
     )
   }
 
-  refreshToken(): void {
-    const refreshToken = window.localStorage.getItem('refreshToken');
+  private refreshToken() {
+    const refreshToken = this.customLocalStore.getSessionStorage('refreshToken');
     if (!refreshToken) {
       this.router.navigate(['/login'])
     } else {
       this.refreshTokenAPI(refreshToken).subscribe(response => {
-        window.localStorage.setItem('accessToken', response.access);
-        window.localStorage.setItem('refreshToken', response.refresh);
-        window.localStorage.setItem('userId', response.userId);
+        this.customLocalStore.storeUserLogin(response)
       }, error => {
         this.router.navigate(['/login'])
       });
+    }
+  }
+
+  validateData() {
+    const token = this.customLocalStore.getSessionStorage('accessToken')
+    if (token) {
+      this.validateAccessToken(token)
+    } else {
+      this.router.navigate(['/login'])
     }
   }
 }

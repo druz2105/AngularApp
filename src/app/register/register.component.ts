@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UserRegister} from "../../models/user.models";
 import {UserAPIServices} from "src/services/user.services";
-import {SnakBarConstants} from "../../constants/snakbar.constants";
+import {CustomSnakbar} from "../../helpers/custom.snakbar";
 
 
 @Component({
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   model = new UserRegister();
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: SnakBarConstants, private usersAPI: UserAPIServices) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: CustomSnakbar, private usersAPI: UserAPIServices) {
   }
 
   ngOnInit() {

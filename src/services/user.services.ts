@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {UserLogin, UserRegister} from "src/models/user.models";
 import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
-import {LoginAPIResponse, UserDetail} from 'src/models/user.get.models';
+import {LoginAPIResponse, GetUserDetailAPIResponse} from 'src/api_responses/user.get.models';
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class UserAPIServices {
   }
 
   userDetailAPI(user_id: string) {
-    return this.http.get<UserDetail>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}${user_id}/`)
+    return this.http.get<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}${user_id}/`)
   }
 
 }
