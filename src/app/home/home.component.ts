@@ -7,7 +7,7 @@ import {UserAPIServices} from "../../services/user.services";
 import {customLocalStorage} from "../../helpers/custom.storage";
 
 @Component({
-  selector: 'dotbot-home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -23,8 +23,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.authService.validateData()
-    if (this.customLocalStore.getSessionStorage('userDetails')){
-      this.user = JSON.parse(this.customLocalStore.getSessionStorage('userDetails')!)
+    const userId = this.customLocalStore.getSessionStorage('userId')
+    if (userId) {
+      // this.user = JSON.parse(this.customLocalStore.getSessionStorage('userDetails')!)
+      this.userAPIServices.userDetailAPI(userId).subscribe(
+        (response) => {
+          this.user = new UserDetail(...Object.values(response))
+        },
+        (error) => {
+        }
+      )
     }
   }
 

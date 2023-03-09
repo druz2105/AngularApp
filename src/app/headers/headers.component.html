@@ -7,12 +7,27 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">Angular App</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="user.id === ''">
           <li class="nav-item">
             <a class="nav-link" routerLink="/register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-md-start" style="width: 100%!important;"
+            *ngIf="user.id !== ''">
+          <li class="nav-item">
+            <a class="nav-link" href="">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Home</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-md-end">
+          <li class="nav-item align-content-end end-0" style="right: 0">
+            <a routerLink="/userProfile" style="color:#000000;cursor: pointer;">
+              <i class="bi bi-person me-2" style="color: #000000;"></i>{{user.email}}</a>
           </li>
         </ul>
       </div>

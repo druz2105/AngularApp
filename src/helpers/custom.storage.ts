@@ -16,7 +16,6 @@ export class customLocalStorage {
 
   setSessionStorage(key: string, value: any) {
     window.sessionStorage.setItem(key, value)
-    console.log('COmpleted')
   }
 
   getSessionStorage(key: string) {
@@ -24,11 +23,9 @@ export class customLocalStorage {
   }
 
   storeUserLogin(response: any) {
-    const user = new UserDetail(response.userId, response.firstName, response.lastName, response.email)
-    console.log(user)
     this.setSessionStorage('accessToken', response.access);
     this.setSessionStorage('refreshToken', response.refresh);
-    this.setSessionStorage('userDetails', JSON.stringify(user));
+    this.setSessionStorage('userId', response.id);
   }
 
 }

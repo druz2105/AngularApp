@@ -33,15 +33,17 @@ export class UserLogin {
 
 
 export class UserDetail {
-  public id: string;
+  public id: string | number;
+  public email: string;
   public firstName: string;
   public lastName: string;
-  public email: string;
+  public lastLogin: Date | null;
 
-  constructor(id?: string, firstName?: string, lastName?: string, email?: string) {
+  constructor(id?: string | number, email?: string, firstName?: string, lastName?: string, lastLogin?: Date | null) {
     this.id = id || '';
     this.firstName = firstName || '';
     this.lastName = lastName || '';
     this.email = email || '';
+    this.lastLogin = lastLogin || new Date();
   }
 }

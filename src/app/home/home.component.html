@@ -1,13 +1,6 @@
+<app-headers></app-headers>
 <div class="main-content" style="height: 88vh">
-  <!-- User data -->
-  <div class="container" *ngIf="getPanelName==='dashboard'">
-    <div class="welcome-msg pt-3 pb-4">
-      <pre>{{user.firstName}}</pre>
-      <h1 (click)="setPanelName('userprofile')"
-          style="color:#26579c;cursor: pointer;">{{user.firstName}} {{user.lastName}}</h1>
-      <p>Logged in as {{user.email}} </p>
-    </div>
-  </div>
+  <app-user-profile *ngIf="getPanelName==='userprofile'"></app-user-profile>
 </div>
 <!-- //content -->
 <!-- main content end-->

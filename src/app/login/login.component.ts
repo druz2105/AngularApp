@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.usersAPI.loginAPI(this.model).subscribe(
       (response) => {
         // API call was successful, redirect to another page
-        this.customLocalStore.storeUserLogin(response);
+        this.customLocalStore.storeUserLogin(response)
         this.router.navigate(['/home'])
       },
       (error) => {

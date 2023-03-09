@@ -21,7 +21,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCardModule} from "@angular/material/card";
 import {AuthService} from "../services/auth.service";
 import {customLocalStorage} from "../helpers/custom.storage";
-import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
+// import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
+import {UserProfileComponent} from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,7 @@ import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
     MatExpansionModule,
     MatCardModule
   ],
-  providers: [MatSnackBar, CustomSnakbar, AuthService, customLocalStorage, AuthActivateRouteGuard, CheckAuthentication],
+  providers: [MatSnackBar, CustomSnakbar, AuthService, customLocalStorage, HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

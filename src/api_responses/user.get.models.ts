@@ -1,7 +1,6 @@
 export interface LoginAPIResponse {
   access: string;
   refresh: string;
-  userId: string;
   firstName: string;
   lastName: string;
 }

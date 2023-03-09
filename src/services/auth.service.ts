@@ -33,7 +33,7 @@ export class AuthService {
 
   validateAccessToken(token: string) {
     return this.verifyTokenAPI(token).subscribe(
-      (data) => {
+      (response) => {
       },
       error => {
         this.refreshToken()
