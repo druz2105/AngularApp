@@ -8,12 +8,14 @@ import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {LogoutComponent} from "./logout/logout.component";
 // import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'logout', component: LogoutComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'home', component: HomeComponent},
   {path: 'userProfile', component: UserProfileComponent},

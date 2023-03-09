@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserDetail} from "../../models/user.models";
 import {customLocalStorage} from "../../helpers/custom.storage";
 import {HomeComponent} from "../home/home.component";
 import {UserAPIServices} from "../../services/user.services";
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-headers',
@@ -10,6 +11,8 @@ import {UserAPIServices} from "../../services/user.services";
   styleUrls: ['./headers.component.css']
 })
 export class HeadersComponent implements OnInit {
+  @ViewChild('popover', {static: false}) popover!: NgbPopover;
+  @ViewChild('dropdown', {static: false}) dropdown!: ElementRef;
 
   user = new UserDetail();
 

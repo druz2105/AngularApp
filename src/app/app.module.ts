@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {HeadersComponent} from './headers/headers.component';
@@ -23,6 +24,8 @@ import {AuthService} from "../services/auth.service";
 import {customLocalStorage} from "../helpers/custom.storage";
 // import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {NgxPopper} from "angular-popper";
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
     RegisterComponent,
     DashboardComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
     MatListModule,
     MatIconModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    NgbModule,
+    NgxPopper,
   ],
   providers: [MatSnackBar, CustomSnakbar, AuthService, customLocalStorage, HomeComponent],
   bootstrap: [AppComponent]
