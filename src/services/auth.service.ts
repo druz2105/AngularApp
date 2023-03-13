@@ -3,7 +3,8 @@ import {Router} from "@angular/router";
 import {environment} from "../constants/environments";
 import {LoginAPIResponse} from "../api_responses/user.get.models";
 import {Injectable} from "@angular/core";
-import {customLocalStorage} from "../helpers/custom.storage";
+import {CustomLocalStorage} from "../helpers/custom.storage";
+import {catchError, map, Observable, of} from "rxjs";
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
   private readonly REFRESH_TOKEN_URL = 'refresh/';
 
 
-  constructor(private http: HttpClient, private router: Router, private customLocalStore: customLocalStorage) {
+  constructor(private http: HttpClient, private router: Router, private customLocalStore: CustomLocalStorage) {
   }
 
 
@@ -31,35 +32,51 @@ export class AuthService {
     })
   }
 
-  validateAccessToken(token: string) {
-    return this.verifyTokenAPI(token).subscribe(
-      (response) => {
-      },
-      error => {
-        this.refreshToken()
-      }
-    )
+  validateAccessToken(token: string): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      this.verifyTokenAPI(token).subscribe(
+        (response) => {
+          observer.next(true);
+          observer.complete();
+        },
+        (error) => {
+          this.refreshToken().subscribe((result) => {
+            observer.next(result);
+            observer.complete();
+          });
+        }
+      );
+    });
   }
 
-  private refreshToken() {
-    const refreshToken = this.customLocalStore.getSessionStorage('refreshToken');
+
+  private refreshToken(): Observable<boolean> {
+    const refreshToken = this.customLocalStore.getSessionStorage("refreshToken");
     if (!refreshToken) {
-      this.router.navigate(['/login'])
+      this.router.navigate(["/login"]);
+      return of(false);
     } else {
-      this.refreshTokenAPI(refreshToken).subscribe(response => {
-        this.customLocalStore.storeUserLogin(response)
-      }, error => {
-        this.router.navigate(['/login'])
-      });
+      return this.refreshTokenAPI(refreshToken).pipe(
+        map((response) => {
+          this.customLocalStore.storeUserLogin(response);
+          return true;
+        }),
+        catchError((error) => {
+          this.router.navigate(["/login"]);
+          return of(false);
+        })
+      );
     }
   }
 
-  validateData() {
-    const token = this.customLocalStore.getSessionStorage('accessToken')
+
+  validateData(): Observable<boolean> {
+    const token = this.customLocalStore.getSessionStorage("accessToken");
     if (token) {
-      this.validateAccessToken(token)
+      return this.validateAccessToken(token);
     } else {
-      this.router.navigate(['/login'])
+      this.router.navigate(["/login"]);
+      return of(false);
     }
   }
 }

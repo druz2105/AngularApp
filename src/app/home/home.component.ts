@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {UserDetail} from "../../models/user.models";
 import {AuthService} from "../../services/auth.service";
 import {UserAPIServices} from "../../services/user.services";
-import {customLocalStorage} from "../../helpers/custom.storage";
+import {CustomLocalStorage} from "../../helpers/custom.storage";
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   user = new UserDetail();
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: customLocalStorage) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage) {
   }
 
 

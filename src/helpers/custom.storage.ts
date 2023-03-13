@@ -4,7 +4,7 @@ import {UserDetail} from "../models/user.models";
 @Injectable({
   providedIn: 'root'
 })
-export class customLocalStorage {
+export class CustomLocalStorage {
 
   setLocalStorage(key: string, value: any) {
     window.localStorage.setItem(key, value)

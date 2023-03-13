@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserDetail} from "../../models/user.models";
-import {customLocalStorage} from "../../helpers/custom.storage";
+import {CustomLocalStorage} from "../../helpers/custom.storage";
 import {HomeComponent} from "../home/home.component";
 import {UserAPIServices} from "../../services/user.services";
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ export class HeadersComponent implements OnInit {
   user = new UserDetail();
 
 
-  constructor(private customLocalStore: customLocalStorage, private homeComponent: HomeComponent, private userAPIServices: UserAPIServices) {
+  constructor(private customLocalStore: CustomLocalStorage, private homeComponent: HomeComponent, private userAPIServices: UserAPIServices) {
   }
 
   ngOnInit(): void {

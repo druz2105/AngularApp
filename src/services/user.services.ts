@@ -35,7 +35,6 @@ export class UserAPIServices {
 
   userUpdateAPI(userData: UserDetail) {
     const updateData = this.updateUser(userData)
-    console.log(updateData)
     return this.http.put<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}${userData.id}/`, updateData)
   }
 

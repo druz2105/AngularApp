@@ -21,11 +21,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCardModule} from "@angular/material/card";
 import {AuthService} from "../services/auth.service";
-import {customLocalStorage} from "../helpers/custom.storage";
-// import {AuthActivateRouteGuard, CheckAuthentication} from "./auth.routeguard";
+import {CustomLocalStorage} from "../helpers/custom.storage";
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {NgxPopper} from "angular-popper";
-import { LogoutComponent } from './logout/logout.component';
+import {LogoutComponent} from './logout/logout.component';
+import {AuthActivateRouteGuard} from "./auth.routeguard";
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { LogoutComponent } from './logout/logout.component';
     NgbModule,
     NgxPopper,
   ],
-  providers: [MatSnackBar, CustomSnakbar, AuthService, customLocalStorage, HomeComponent],
+  providers: [MatSnackBar, CustomSnakbar, AuthService, CustomLocalStorage, HomeComponent, AuthActivateRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

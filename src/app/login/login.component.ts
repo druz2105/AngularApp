@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {UserAPIServices} from "../../services/user.services";
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
-import {customLocalStorage} from "../../helpers/custom.storage";
+import {CustomLocalStorage} from "../../helpers/custom.storage";
 
 @Component({
   selector: 'app-login',
@@ -27,13 +27,17 @@ export class LoginComponent implements OnInit {
 
   model = new UserLogin()
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: CustomSnakbar, private usersAPI: UserAPIServices, private customLocalStore: customLocalStorage) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: CustomSnakbar, private usersAPI: UserAPIServices, private customLocalStore: CustomLocalStorage) {
   }
 
 
   ngOnInit() {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
+    if (this.customLocalStore.getSessionStorage("accessToken")) {
+      this.router.navigate(['/home'])
+    } else {
+      window.localStorage.clear();
+      window.sessionStorage.clear();
+    }
   }
 
 

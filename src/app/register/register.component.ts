@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {UserRegister} from "../../models/user.models";
 import {UserAPIServices} from "src/services/user.services";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
+import {CustomLocalStorage} from "../../helpers/custom.storage";
 
 
 @Component({
@@ -16,12 +17,16 @@ export class RegisterComponent implements OnInit {
 
   model = new UserRegister();
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: CustomSnakbar, private usersAPI: UserAPIServices) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: CustomSnakbar, private usersAPI: UserAPIServices, private customLocalStore: CustomLocalStorage) {
   }
 
   ngOnInit() {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
+    if (this.customLocalStore.getSessionStorage("accessToken")) {
+      this.router.navigate(['/home'])
+    } else {
+      window.localStorage.clear();
+      window.sessionStorage.clear();
+    }
   }
 
   matchPassword() {
