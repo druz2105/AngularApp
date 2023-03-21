@@ -26,6 +26,7 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import {NgxPopper} from "angular-popper";
 import {LogoutComponent} from './logout/logout.component';
 import {AuthActivateRouteGuard} from "./auth.routeguard";
+import {AuthHeaders} from "../helpers/user.auth.header";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import {AuthActivateRouteGuard} from "./auth.routeguard";
     NgbModule,
     NgxPopper,
   ],
-  providers: [MatSnackBar, CustomSnakbar, AuthService, CustomLocalStorage, HomeComponent, AuthActivateRouteGuard],
+  providers: [MatSnackBar, CustomSnakbar, AuthService, CustomLocalStorage, HomeComponent, AuthActivateRouteGuard, AuthHeaders],
   bootstrap: [AppComponent]
 })
 export class AppModule {

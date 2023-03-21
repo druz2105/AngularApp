@@ -7,6 +7,18 @@
     <form (ngSubmit)="updateUserForm.valid && validateForm(updateUserForm)" #updateUserForm="ngForm">
       <!-- 2 column grid layout with text inputs for the first and last names -->
       <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label" for="profile-img">Profile Image</label>
+          <div class="card">
+            <img id="profile-img" [src]="profileImgUrl || '/assets/images/blank-profile-picture-973460.svg'" alt="Profile Picture">
+            <div class="card-body">
+              <button class="btn btn-primary" (click)="selectProfileImage()">Select Profile Image</button>
+              <input type="file" id="profile-image-input" style="display:none">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
         <div class="col">
           <div class="form-outline">
             <input type="text" id="firstName" name="first name" class="form-control" [(ngModel)]="user.firstName"
@@ -40,13 +52,12 @@
                  #email="ngModel"
                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
           <label class="form-label" for="email">Email address</label>
-
-        </div>
-        <div>
+          <div>
          <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
          email.errors?.['required']">Email is required !</span>
-          <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
+            <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
          email.errors?.['pattern']">Please provide a valid email address !</span>
+          </div>
         </div>
       </div>
       <!-- Submit button -->

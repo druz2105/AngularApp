@@ -14,24 +14,12 @@ export class HeadersComponent implements OnInit {
   @ViewChild('popover', {static: false}) popover!: NgbPopover;
   @ViewChild('dropdown', {static: false}) dropdown!: ElementRef;
 
-  user = new UserDetail();
-
+  accessToken = this.customLocalStore.getSessionStorage('accessToken')
 
   constructor(private customLocalStore: CustomLocalStorage, private homeComponent: HomeComponent, private userAPIServices: UserAPIServices) {
   }
 
   ngOnInit(): void {
-    const userId = this.customLocalStore.getSessionStorage('userId')
-    if (userId) {
-      // this.user = JSON.parse(this.customLocalStore.getSessionStorage('userDetails')!)
-      this.userAPIServices.userDetailAPI(userId).subscribe(
-        (response) => {
-          this.user = new UserDetail(...Object.values(response))
-        },
-        (error) => {
-        }
-      )
-    }
     window.addEventListener('scroll', function () {
       const nav = document.getElementById('styleNav');
       if (nav !== null) {

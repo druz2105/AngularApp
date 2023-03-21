@@ -15,25 +15,11 @@ export class HomeComponent implements OnInit {
 
   private panelName: string = 'dashboard';
 
-  user = new UserDetail();
-
   constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage) {
   }
 
 
   ngOnInit() {
-    this.authService.validateData()
-    const userId = this.customLocalStore.getSessionStorage('userId')
-    if (userId) {
-      // this.user = JSON.parse(this.customLocalStore.getSessionStorage('userDetails')!)
-      this.userAPIServices.userDetailAPI(userId).subscribe(
-        (response) => {
-          this.user = new UserDetail(...Object.values(response))
-        },
-        (error) => {
-        }
-      )
-    }
   }
 
   get getPanelName() {

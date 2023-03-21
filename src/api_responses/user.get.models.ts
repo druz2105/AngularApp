@@ -12,4 +12,5 @@ export interface GetUserDetailAPIResponse {
   "firstName": string,
   "lastName": string,
   "lastLogin": Date | null
+  "image": string
 }

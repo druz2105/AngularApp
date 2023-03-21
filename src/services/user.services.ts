@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserDetail, UserLogin, UserRegister} from "src/models/user.models";
 import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
-import {LoginAPIResponse, GetUserDetailAPIResponse} from 'src/api_responses/user.get.models';
-import {Observable} from "rxjs";
+import {GetUserDetailAPIResponse, LoginAPIResponse} from 'src/api_responses/user.get.models';
+import {CustomLocalStorage} from "../helpers/custom.storage";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import {Observable} from "rxjs";
 export class UserAPIServices {
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private customLocalStore: CustomLocalStorage) {
 
   }
 
@@ -29,13 +29,26 @@ export class UserAPIServices {
     return this.http.post<LoginAPIResponse>(environment.rooturl + AppConstants.LOGIN_API, loginData)
   }
 
-  userDetailAPI(user_id: string) {
-    return this.http.get<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}${user_id}/`)
+  userDetailAPI() {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.get<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}`, {headers})
   }
 
   userUpdateAPI(userData: UserDetail) {
     const updateData = this.updateUser(userData)
-    return this.http.put<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}${userData.id}/`, updateData)
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.put<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}`, updateData, {headers})
+  }
+
+  profileImageUpdateAPI(formData: FormData) {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.post(`${environment.rooturl}${AppConstants.USER_IMAGE_UPDATE_API}`, formData, {headers})
   }
 
 }
