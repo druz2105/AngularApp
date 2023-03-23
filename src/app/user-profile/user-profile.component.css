@@ -20,3 +20,21 @@
 .card input[type="file"] {
   display: none;
 }
+
+.left-aligned {
+  float: left;
+  width: 50%;
+}
+
+.right-aligned {
+  float: right;
+  width: 50%;
+}
+
+
+@media (max-width: 1200px) {
+  .left-aligned, .right-aligned {
+    float: none;
+    width: 100%;
+  }
+}

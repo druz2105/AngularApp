@@ -12,8 +12,8 @@ import {catchError, map, Observable, of} from "rxjs";
 })
 export class AuthService {
 
-  private readonly VERIFY_TOKEN_URL = 'verify/';
-  private readonly REFRESH_TOKEN_URL = 'refresh/';
+  private readonly VERIFY_TOKEN_URL = 'user/verify/';
+  private readonly REFRESH_TOKEN_URL = 'user/refresh/';
 
 
   constructor(private http: HttpClient, private router: Router, private customLocalStore: CustomLocalStorage) {

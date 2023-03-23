@@ -47,3 +47,17 @@ export class UserDetail {
     this.lastLogin = lastLogin || new Date();
   }
 }
+
+
+export class UserPasswordChange {
+  public oldPassword: string;
+  public password: string;
+
+  public confirmPassword?: string;
+
+  constructor(oldPassword?: string, password?: string, confirmPassword?: string) {
+    this.oldPassword = oldPassword || '';
+    this.password = password || '';
+    this.confirmPassword = confirmPassword || '';
+  }
+}

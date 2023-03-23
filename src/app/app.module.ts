@@ -27,6 +27,7 @@ import {NgxPopper} from "angular-popper";
 import {LogoutComponent} from './logout/logout.component';
 import {AuthActivateRouteGuard} from "./auth.routeguard";
 import {AuthHeaders} from "../helpers/user.auth.header";
+import { UserPasswordComponent } from './user-password/user.password.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {AuthHeaders} from "../helpers/user.auth.header";
     DashboardComponent,
     HomeComponent,
     UserProfileComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserPasswordComponent
   ],
   imports: [
     BrowserModule,
