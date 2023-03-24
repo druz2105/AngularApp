@@ -32,6 +32,7 @@ export class UserProfileComponent implements OnInit {
         this.user = new UserDetail(...Object.values(response))
       },
       (error) => {
+        this.snackBar.snackBarError(error)
       }
     )
   }
@@ -58,10 +59,10 @@ export class UserProfileComponent implements OnInit {
 
           this.userAPIServices.profileImageUpdateAPI(formData).subscribe(
             (response) => {
-              console.log(response);
+              this.snackBar.snackBarSuccess('Profile Image Changed!')
             },
             (error) => {
-              console.error(error);
+              this.snackBar.snackBarError(error)
             }
           );
         }
@@ -79,6 +80,7 @@ export class UserProfileComponent implements OnInit {
   validateForm(form: NgForm) {
     this.userAPIServices.userUpdateAPI(this.user).subscribe(
       (response) => {
+        this.snackBar.snackBarSuccess('User Details Changed!')
       },
       error => {
         this.snackBar.snackBarError(error)

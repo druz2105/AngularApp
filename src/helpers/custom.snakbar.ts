@@ -8,8 +8,8 @@ export class CustomSnakbar {
   constructor(private snackBar: MatSnackBar) {
   }
 
-  snackBarSuccess() {
-    this.snackBar.open('Success: ' + "Success", 'Close', {
+  snackBarSuccess(message: string) {
+    this.snackBar.open('Success: ' + message, 'Close', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'end',

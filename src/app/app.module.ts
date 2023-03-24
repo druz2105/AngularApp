@@ -27,7 +27,8 @@ import {NgxPopper} from "angular-popper";
 import {LogoutComponent} from './logout/logout.component';
 import {AuthActivateRouteGuard} from "./auth.routeguard";
 import {AuthHeaders} from "../helpers/user.auth.header";
-import { UserPasswordComponent } from './user-password/user.password.component';
+import {UserPasswordComponent} from './user-password/user.password.component';
+import {CustomStripe} from "../helpers/custom.stripe";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UserPasswordComponent } from './user-password/user.password.component';
     HomeComponent,
     UserProfileComponent,
     LogoutComponent,
-    UserPasswordComponent
+    UserPasswordComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,7 @@ import { UserPasswordComponent } from './user-password/user.password.component';
     NgbModule,
     NgxPopper,
   ],
-  providers: [MatSnackBar, CustomSnakbar, AuthService, CustomLocalStorage, HomeComponent, AuthActivateRouteGuard, AuthHeaders],
+  providers: [MatSnackBar, CustomSnakbar, AuthService, CustomLocalStorage, HomeComponent, AuthActivateRouteGuard, AuthHeaders, CustomStripe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

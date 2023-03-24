@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {UserDetail, UserLogin, UserRegister} from "src/models/user.models";
+import {UserDetail, UserLogin, UserPasswordChange, UserRegister} from "src/models/user.models";
 import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
-import {GetUserDetailAPIResponse, LoginAPIResponse} from 'src/api_responses/user.get.models';
+import {GetUserDetailAPIResponse, LoginAPIResponse, RegisterAPIResponse} from 'src/api_responses/user.get.models';
 import {CustomLocalStorage} from "../helpers/custom.storage";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class UserAPIServices {
 
   registerAPI(userData: UserRegister) {
     // const registerData = this.createRegisterData(userData)
-    return this.http.post(environment.rooturl + AppConstants.REGISTER_API, userData)
+    return this.http.post<RegisterAPIResponse>(environment.rooturl + AppConstants.REGISTER_API, userData)
   }
 
   loginAPI(loginData: UserLogin) {
@@ -49,6 +49,15 @@ export class UserAPIServices {
       'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
     });
     return this.http.post(`${environment.rooturl}${AppConstants.USER_IMAGE_UPDATE_API}`, formData, {headers})
+  }
+
+  passWordChangeAPI(userPasswordData: UserPasswordChange) {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    const data = {...userPasswordData}
+    delete data.confirmPassword
+    return this.http.patch(`${environment.rooturl}${AppConstants.USER_PASSWORD_CHANGE_API}`, data, {headers})
   }
 
 }

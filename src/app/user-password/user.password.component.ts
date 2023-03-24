@@ -24,7 +24,15 @@ export class UserPasswordComponent {
   }
 
   validateForm(form: NgForm) {
-    console.log(this.model)
+    if (form.valid) {
+      this.usersAPI.passWordChangeAPI(this.model).subscribe(response => {
+        this.snackBar.snackBarSuccess("Password Change")
+      }, error => {
+        this.snackBar.snackBarError(error)
+      })
+    } else {
+      this.snackBar.snackBarError({status: "FAILED", message: "Invalid Form"})
+    }
   }
 
 }

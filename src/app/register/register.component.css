@@ -1,0 +1,85 @@
+.step-form {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(45deg, #7aa3cc, #007bff);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.step-form .col-4 {
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.step-form .col-4:first-child {
+  margin-right: 10px;
+}
+
+.step-form .col-4:last-child {
+  margin-left: 10px;
+}
+
+.step-form .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #007bff;
+  font-size: 24px;
+  margin: 0 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.step-form .arrow:hover {
+  cursor: default;
+}
+
+
+.card {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.card-link {
+  color: #007bff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.card.selected {
+  border: 2px solid #007bff;
+}
+
+.subscription-plan {
+  list-style: none;
+  display: inline-block;
+  margin-right: 10px;
+}
+
