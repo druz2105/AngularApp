@@ -63,6 +63,17 @@ export class UserLogin {
 }
 
 
+export class UserSubscriptionCheck {
+  public subscription_id: string
+  public user_id: number
+
+  constructor(subscription_id?: string, user_id?: number) {
+    this.subscription_id = subscription_id || '';
+    this.user_id = user_id || 0
+  }
+}
+
+
 export class UserDetail {
   public id: string | number;
   public email: string;

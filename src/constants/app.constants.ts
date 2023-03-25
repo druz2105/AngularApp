@@ -6,4 +6,5 @@ export const AppConstants = {
   USER_PASSWORD_CHANGE_API: "user/change/password/",
   SUBSCRIPTIONS_PLANS_API: "subscriptions/plans/",
   SUBSCRIPTIONS_CREATE_API: "subscriptions/create/",
+  SUBSCRIPTIONS_CHECK_API: "subscriptions/check/",
 }

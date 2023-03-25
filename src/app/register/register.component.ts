@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {UserRegister, UserSubscription} from "../../models/user.models";
+import {UserRegister, UserSubscription, UserSubscriptionCheck} from "../../models/user.models";
 import {UserAPIServices} from "src/services/user.services";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
 import {CustomLocalStorage} from "../../helpers/custom.storage";
@@ -16,6 +16,8 @@ import {GetSubscriptionsAPIResponse} from "../../api_responses/subscriptions.get
 })
 export class RegisterComponent implements OnInit {
 
+  stripePopup: Window | null = null;
+  checkCalled: boolean = false;
   model = new UserRegister();
   subModel = new UserSubscription();
   formName = 'registerForm'
@@ -69,29 +71,34 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  validateSubscription(form: NgForm) {
-    console.log(this.subModel);
-    if (this.subModel.cardDetails.cardExpire) {
+  subscriptionCheck(data: UserSubscriptionCheck) {
+    this.checkCalled = true
+    this.subscriptionsAPIServices.checkSubscriptionPlansData(data).subscribe(response => {
+      this.router.navigate(['/login'])
+    }, error => {
+      this.snackBar.snackBarError(error)
+    })
+  }
 
-      let cardData = {...this.subModel.cardDetails}
-      let data = {...this.subModel}
-      delete cardData.cardExpire
-      cardData.exp_month = this.subModel.cardDetails.cardExpire?.split('/')[0]
-      cardData.exp_year = this.subModel.cardDetails.cardExpire?.split('/')[1]
-      data.cardDetails = cardData
-      this.subscriptionsAPIServices.createSubscriptionPlansData(data).subscribe(response => {
-        console.log(response)
-        if (response.subscription) {
-          this.router.navigate(['/login'])
-        } else if (response.intent && response.intent.nextAction) {
-          window.open(response.intent.nextAction.useStripeSdk.stripeJs, "_blank");
-        }
-      }, error => {
-        this.snackBar.snackBarError(error)
-      })
-    } else {
-      this.snackBar.snackBarError({status: 400, message: "Enter valid card expiry"})
-    }
+  validateSubscription(form: NgForm) {
+    this.subscriptionsAPIServices.createSubscriptionPlansData(this.subModel).subscribe(response => {
+      const checkSubscription: UserSubscriptionCheck = new UserSubscriptionCheck(response.subscriptionId, this.subModel.user_id)
+      if (response.subscription) {
+        this.subscriptionCheck(checkSubscription)
+      } else if (response.intent && response.intent.nextAction) {
+        const url = response.intent.nextAction.useStripeSdk.stripeJs;
+        this.stripePopup = window.open(url, 'stripePopup', `toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=${890},height=${890}`);
+
+        const intervalId = window.setInterval(() => {
+          if (this.stripePopup?.closed && !this.checkCalled) {
+            this.subscriptionCheck(checkSubscription);
+          }
+        }, 500);
+      }
+    }, error => {
+      this.snackBar.snackBarError(error)
+    })
+
   }
 
 }

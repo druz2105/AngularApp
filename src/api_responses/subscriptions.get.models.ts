@@ -217,4 +217,10 @@ interface PaymentIntent {
 export interface createSubscriptionAPIResponse {
   intent?: PaymentIntent,
   subscription?: StripeSubscription,
+  subscriptionId: string,
+}
+
+
+export interface checkSubscriptionAPIResponse {
+  subscription_valid: string
 }
