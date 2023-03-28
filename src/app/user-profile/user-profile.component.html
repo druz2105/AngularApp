@@ -1,77 +1,109 @@
 <app-headers></app-headers>
 <div class="row m-5 no-gutters shadow-lg p-md-5">
-  <section class="left-aligned">
+  <div *ngIf="getPanelName()==='userProfilePanel'">
+    <section class="left-aligned">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6 bg-white p-5">
+          <div class="welcome-msg pt-3 pb-4">
+            <h4>Update User</h4>
+          </div>
+
+          <form (ngSubmit)="updateUserForm.valid && validateForm(updateUserForm)" #updateUserForm="ngForm">
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="firstName" name="first name" class="form-control" [(ngModel)]="user.firstName"
+                         #firstName="ngModel"
+                         required/>
+                  <label class="form-label" for="firstName">First name</label>
+                </div>
+                <div>
+          <span class="text-danger" *ngIf="(firstName.touched || updateUserForm.submitted) &&
+          firstName.errors?.['required']">First Name is required !</span>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="lastName" name="last name" class="form-control" [(ngModel)]="user.lastName"
+                         #lastName="ngModel"
+                         required/>
+                  <label class="form-label" for="lastName">Last name</label>
+                </div>
+                <div>
+          <span class="text-danger" *ngIf="(lastName.touched || updateUserForm.submitted) &&
+          lastName.errors?.['required']">Last Name is required !</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email input -->
+            <div class="row mb-4">
+              <div>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user.email"
+                       #email="ngModel"
+                       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
+                <label class="form-label" for="email">Email address</label>
+                <div>
+         <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
+         email.errors?.['required']">Email is required !</span>
+                  <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
+         email.errors?.['pattern']">Please provide a valid email address !</span>
+                </div>
+              </div>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Update</button>
+
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="right-aligned">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-4">
+          <h4 class="form-label">Profile Image</h4>
+          <div class="card">
+            <img id="profile-img" [src]="profileImgUrl || '/assets/images/blank-profile-picture-973460.svg'"
+                 alt="Profile Picture">
+            <div class="card-body">
+              <button class="btn btn-primary" (click)="selectProfileImage()">Select Profile Image</button>
+              <input type="file" id="profile-image-input" style="display:none">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div *ngIf="getPanelName()==='stripeDetailsPanel'">
     <div class="row mb-4 justify-content-center">
       <div class="col-md-6 bg-white p-5">
         <div class="welcome-msg pt-3 pb-4">
           <h4>Update User</h4>
         </div>
-
-        <form (ngSubmit)="updateUserForm.valid && validateForm(updateUserForm)" #updateUserForm="ngForm">
-          <!-- 2 column grid layout with text inputs for the first and last names -->
-          <div class="row mb-4">
-            <div class="col">
-              <div class="form-outline">
-                <input type="text" id="firstName" name="first name" class="form-control" [(ngModel)]="user.firstName"
-                       #firstName="ngModel"
-                       required/>
-                <label class="form-label" for="firstName">First name</label>
-              </div>
-              <div>
-          <span class="text-danger" *ngIf="(firstName.touched || updateUserForm.submitted) &&
-          firstName.errors?.['required']">First Name is required !</span>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline">
-                <input type="text" id="lastName" name="last name" class="form-control" [(ngModel)]="user.lastName"
-                       #lastName="ngModel"
-                       required/>
-                <label class="form-label" for="lastName">Last name</label>
-              </div>
-              <div>
-          <span class="text-danger" *ngIf="(lastName.touched || updateUserForm.submitted) &&
-          lastName.errors?.['required']">Last Name is required !</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Email input -->
-          <div class="row mb-4">
-            <div>
-              <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user.email"
-                     #email="ngModel"
-                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
-              <label class="form-label" for="email">Email address</label>
-              <div>
-         <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
-         email.errors?.['required']">Email is required !</span>
-                <span class="text-danger" *ngIf="(email.touched || updateUserForm.submitted) &&
-         email.errors?.['pattern']">Please provide a valid email address !</span>
-              </div>
-            </div>
-          </div>
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block mb-4">Update</button>
-
-        </form>
-      </div>
-    </div>
-
-  </section>
-  <section class="right-aligned">
-    <div class="row mb-4 justify-content-center">
-      <div class="col-md-4">
-        <h4 class="form-label">Profile Image</h4>
-        <div class="card">
-          <img id="profile-img" [src]="profileImgUrl || '/assets/images/blank-profile-picture-973460.svg'"
-               alt="Profile Picture">
-          <div class="card-body">
-            <button class="btn btn-primary" (click)="selectProfileImage()">Select Profile Image</button>
-            <input type="file" id="profile-image-input" style="display:none">
-          </div>
+        <div class="card-details">
+          <h2>Card Details</h2>
+          <p>Last 4: {{ stripeDetails.cardDetails.last4 }}</p>
+          <p>Expiration Month: {{ stripeDetails.cardDetails.expMonth }}</p>
+          <p>Expiration Year: {{ stripeDetails.cardDetails.expYear }}</p>
+        </div>
+        <div class="subscription-details">
+          <h2>Subscription Details</h2>
+          <p>Current Period Start: {{ stripeDetails.subscription.currentPeriodStart }}</p>
+          <p>Current Period End: {{ stripeDetails.subscription.currentPeriodEnd }}</p>
+          <p>Status: {{ stripeDetails.subscription.status }}</p>
+        </div>
+        <div class="product-details">
+          <h2>Product Details</h2>
+          <p>Name: {{ stripeDetails.product.name }}</p>
+        </div>
+        <div class="price-details">
+          <h2>Price Details</h2>
+          <p>Currency: {{ stripeDetails.price.currency }}</p>
+          <p>Unit Amount: {{ stripeDetails.price.unitAmount / 100 }}</p>
+          <p>Interval: {{ stripeDetails.price.recurring.interval }}</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>

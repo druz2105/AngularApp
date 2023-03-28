@@ -8,6 +8,7 @@ import {CustomLocalStorage} from "../../helpers/custom.storage";
 import {HomeComponent} from "../home/home.component";
 import {NgForm} from "@angular/forms";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
+import {StripeDetailsAPIResponse} from "../../api_responses/user.get.models";
 
 @Component({
   selector: 'app-user-profile',
@@ -15,11 +16,14 @@ import {CustomSnakbar} from "../../helpers/custom.snakbar";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  private panelName: string = '';
+  private panelName: string = 'stripeDetailsPanel';
 
   user = new UserDetail();
 
+  stripeDetails: any;
+
   profileImgUrl: string = '';
+
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage, private homeComponent: HomeComponent, private snackBar: CustomSnakbar) {
   }
@@ -30,6 +34,14 @@ export class UserProfileComponent implements OnInit {
       (response) => {
         this.profileImgUrl = response.image.replace('minio', 'localhost')
         this.user = new UserDetail(...Object.values(response))
+      },
+      (error) => {
+        this.snackBar.snackBarError(error)
+      }
+    )
+    this.userAPIServices.stripeDetailAPI().subscribe(
+      (response) => {
+        this.stripeDetails = response
       },
       (error) => {
         this.snackBar.snackBarError(error)
@@ -76,6 +88,9 @@ export class UserProfileComponent implements OnInit {
     input.click();
   }
 
+  getPanelName() {
+    return this.panelName
+  }
 
   validateForm(form: NgForm) {
     this.userAPIServices.userUpdateAPI(this.user).subscribe(

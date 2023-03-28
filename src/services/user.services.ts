@@ -3,7 +3,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserDetail, UserLogin, UserPasswordChange, UserRegister} from "src/models/user.models";
 import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
-import {GetUserDetailAPIResponse, LoginAPIResponse, RegisterAPIResponse} from 'src/api_responses/user.get.models';
+import {
+  GetUserDetailAPIResponse,
+  LoginAPIResponse,
+  RegisterAPIResponse,
+  StripeDetailsAPIResponse
+} from 'src/api_responses/user.get.models';
 import {CustomLocalStorage} from "../helpers/custom.storage";
 
 @Injectable({
@@ -34,6 +39,13 @@ export class UserAPIServices {
       'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
     });
     return this.http.get<GetUserDetailAPIResponse>(`${environment.rooturl}${AppConstants.USER_DETAIL_API}`, {headers})
+  }
+
+  stripeDetailAPI() {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.get<StripeDetailsAPIResponse>(`${environment.rooturl}${AppConstants.STRIPE_DETAIL_API}`, {headers})
   }
 
   userUpdateAPI(userData: UserDetail) {

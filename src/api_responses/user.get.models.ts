@@ -20,3 +20,34 @@ export interface GetUserDetailAPIResponse {
   "lastLogin": Date | null
   "image": string
 }
+
+export interface StripeDetailsAPIResponse {
+  cardDetails: {
+    last4: string;
+    expMonth: number;
+    expYear: number;
+    cardId: string;
+  };
+  subscription: {
+    subId: string;
+    currentPeriodStart: number;
+    currentPeriodEnd: number;
+    status: string;
+  };
+  product: {
+    prodId: string;
+    name: string;
+  };
+  price: {
+    priceId: string;
+    currency: string;
+    unitAmount: number;
+    recurring: {
+      aggregateUsage: null | string;
+      interval: string;
+      intervalCount: number;
+      trialPeriodDays: number;
+      usageType: string;
+    };
+  };
+}
