@@ -50,9 +50,10 @@ export class RegisterComponent implements OnInit {
     return this.model.password === this.model.confirmPassword
   }
 
-  selectCard(priceId: string) {
+  selectCard(priceId: string, prodId: string) {
     this.selectedCard = priceId;
     this.subModel.price_id = priceId
+    this.subModel.prod_id = prodId
   }
 
 
@@ -82,7 +83,7 @@ export class RegisterComponent implements OnInit {
 
   validateSubscription(form: NgForm) {
     this.subscriptionsAPIServices.createSubscriptionPlansData(this.subModel).subscribe(response => {
-      const checkSubscription: UserSubscriptionCheck = new UserSubscriptionCheck(response.subscriptionId, this.subModel.user_id)
+      const checkSubscription: UserSubscriptionCheck = new UserSubscriptionCheck(response.subscriptionId, this.subModel.user_id, response.priceId, response.prodId)
       if (response.subscription) {
         this.subscriptionCheck(checkSubscription)
       } else if (response.intent && response.intent.nextAction) {
@@ -96,7 +97,10 @@ export class RegisterComponent implements OnInit {
         }, 500);
       }
     }, error => {
-      this.snackBar.snackBarError(error)
+      this.snackBar.snackBarError({
+        "status": '500',
+        'message': 'Something went wrong! If your payment was done but still got this message kindly contact support team!'
+      })
     })
 
   }

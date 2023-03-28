@@ -29,6 +29,7 @@ import {AuthActivateRouteGuard} from "./auth.routeguard";
 import {AuthHeaders} from "../helpers/user.auth.header";
 import {UserPasswordComponent} from './user-password/user.password.component';
 import {CustomStripe} from "../helpers/custom.stripe";
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {CustomStripe} from "../helpers/custom.stripe";
     UserProfileComponent,
     LogoutComponent,
     UserPasswordComponent,
+    SubscriptionComponent,
 
   ],
   imports: [

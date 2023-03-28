@@ -218,6 +218,9 @@ export interface createSubscriptionAPIResponse {
   intent?: PaymentIntent,
   subscription?: StripeSubscription,
   subscriptionId: string,
+  priceId: string,
+  prodId: string,
+  message: string
 }
 
 

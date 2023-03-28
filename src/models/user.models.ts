@@ -20,13 +20,15 @@ export class UserRegister {
 export class UserSubscription {
   public user_id: number;
   public price_id: string;
+  public prod_id: string;
   public email: string;
   public cardDetails: CardModel
 
 
-  constructor(user_id?: number, email?: string, price_id?: string, cardDetails?: CardModel) {
+  constructor(user_id?: number, email?: string, prod_id?: string, price_id?: string, cardDetails?: CardModel) {
     this.user_id = user_id || 0;
     this.price_id = price_id || '';
+    this.prod_id = prod_id || '';
     this.email = email || '';
     this.cardDetails = cardDetails || new CardModel();
   }
@@ -64,12 +66,16 @@ export class UserLogin {
 
 
 export class UserSubscriptionCheck {
-  public subscription_id: string
-  public user_id: number
+  public subscriptionId: string
+  public userId: number
+  public priceId: string
+  public prodId: string
 
-  constructor(subscription_id?: string, user_id?: number) {
-    this.subscription_id = subscription_id || '';
-    this.user_id = user_id || 0
+  constructor(subscriptionId?: string, userId?: number, priceId?: string, prodId?: string) {
+    this.subscriptionId = subscriptionId || '';
+    this.userId = userId || 0
+    this.priceId = priceId || ''
+    this.prodId = prodId || ''
   }
 }
 
