@@ -1,18 +1,14 @@
 <app-headers></app-headers>
-<div class="row m-5 no-gutters shadow-lg" style="height: 100%">
+<div class="row m-5 no-gutters shadow-lg" style="height: 100vh">
   <div class="col-md-4 d-none d-md-block">
-    <img src="assets/images/side_reg.avif" class="img-fluid" style="min-height:100%;" alt="Register Form"/>
+    <img src="assets/images/side_register_login.webp" class="img-fluid" style="height: 100%; object-fit: cover;" alt="Register Form"/>
   </div>
   <div class="col-md-8 bg-white">
-    <div class="step-form">
+    <div class="step-form justify-content-center">
       <div class="col-4">Register</div>
-      <div class="arrow">&#8594;</div>
-      <div class="col-4">Subscription</div>
     </div>
-    <form (ngSubmit)="registerForm.valid && validateRegister(registerForm)" #registerForm="ngForm"
-          *ngIf="formName==='registerForm' && !registered" class="m-5">
+    <form (ngSubmit)="registerForm.valid && validateRegister(registerForm)" #registerForm="ngForm" class="m-5">
       <!-- 2 column grid layout with text inputs for the first and last names -->
-      <h1 style="color: black; align-content: center">Register Form</h1>
       <div class="row mb-4">
         <div class="col">
           <div class="form-outline">
@@ -86,95 +82,9 @@
 
       <!-- Submit button -->
       <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="!matchPassword() || !registerForm.valid">
-        Next
+        Sign UP
       </button>
-
     </form>
-    <form *ngIf="formName==='subscriptionForm' && registered" class="m-5"
-          (ngSubmit)="subscriptionForm.valid && validateSubscription(subscriptionForm)" #subscriptionForm="ngForm">
-      <h1 style="color: black; align-content: center">Subscribe</h1>
-      <div class="container" *ngIf="subscriptionPlans.length===0">
-        <p>Plans Not Loaded Add Plans in Database to see data</p>
-      </div>
-      <div class="container">
-        <div class="row">
-          <li *ngFor="let subscriptionObj of subscriptionPlans" class="subscription-plan">
-            <div class="col-6">
-              <div class="card mb-4" [ngClass]="{'selected': selectedCard === subscriptionObj.priceData.id}"
-                   (click)="selectCard(subscriptionObj.priceData.id, subscriptionObj.productData.id)">
-                <div class="card-body">
-                  <h5 class="card-title">{{subscriptionObj.productData.name}}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">${{subscriptionObj.priceData.unitAmount / 100}}/month</h6>
-                </div>
-              </div>
-            </div>
-          </li>
-        </div>
-      </div>
-      <div class="row mb-4">
-        <div class="col">
-          <div class="form-outline">
-            <input type="email" id="emailSub" name="email" class="form-control" [(ngModel)]="subModel.email" disabled>
-            <label class="form-label" for="emailSub">User Email</label>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-4">
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="cardSub" name="card number" class="form-control"
-                   [(ngModel)]="subModel.cardDetails.number"
-                   #cardSub='ngModel'
-                   pattern="\d{16}"
-                   required>
-            <label class="form-label" for="cardSub">Card Number</label>
-          </div>
-          <div>
-          <span class="text-danger" *ngIf="(cardSub.touched || subscriptionForm.submitted) &&
-          cardSub.errors?.['required']">Card Number is required !</span>
-            <span class="text-danger" *ngIf="(cardSub.touched || subscriptionForm.submitted) &&
-          cardSub.errors?.['pattern']">Please provide a valid card number! </span>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-4">
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="cardExp" name="expiry date" class="form-control"
-                   [(ngModel)]="subModel.cardDetails.cardExpire"
-                   #cardExp='ngModel'
-                   pattern="^(0[1-9]|1[0-2])/[0-9]{2}$"
-                   required/>
-            <label class="form-label" for="cardExp">Expiry Date</label>
-          </div>
-          <div>
-          <span class="text-danger" *ngIf="(cardExp.touched || subscriptionForm.submitted) &&
-          cardExp.errors?.['required']">Expiry Date is required !</span>
-            <span class="text-danger" *ngIf="(cardExp.touched || subscriptionForm.submitted) &&
-          cardExp.errors?.['pattern']">Please provide a valid Expiry Date! </span>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="cardCvv" name="cvv" class="form-control" [(ngModel)]="subModel.cardDetails.cvc"
-                   #cardCvv='ngModel'
-                   pattern="^\d{3,4}$"
-                   required/>
-            <label class="form-label" for="cardCvv">Card CVV/CVC</label>
-          </div>
-          <div>
-          <span class="text-danger" *ngIf="(cardCvv.touched || subscriptionForm.submitted) &&
-          cardCvv.errors?.['required']">CVV is required !</span>
-            <span class="text-danger" *ngIf="(cardCvv.touched || subscriptionForm.submitted) &&
-          cardCvv.errors?.['pattern']">Please provide a valid card cvv! </span>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary btn-block mb-4"
-              [disabled]="!subscriptionForm.valid || !validPlans.includes(subModel.price_id)">
-        Submit
-      </button>
 
-    </form>
   </div>
 </div>

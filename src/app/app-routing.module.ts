@@ -11,6 +11,7 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {LogoutComponent} from "./logout/logout.component";
 import {AuthActivateRouteGuard} from "./auth.routeguard";
 import {UserPasswordComponent} from "./user-password/user.password.component";
+import {SubscriptionComponent} from "./subscription/subscription.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthActivateRouteGuard]},
   {path: 'userProfile', component: UserProfileComponent, canActivate: [AuthActivateRouteGuard]},
   {path: 'changePassword', component: UserPasswordComponent, canActivate: [AuthActivateRouteGuard]},
+  {path: 'createSubscription', component: SubscriptionComponent, canActivate: [AuthActivateRouteGuard]},
 ];
 
 

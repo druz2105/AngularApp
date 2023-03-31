@@ -1,0 +1,51 @@
+<div class="row mb-4">
+  <div class="col">
+    <div class="form-outline">
+      <input type="text" id="cardSub" name="card number" class="form-control"
+             [(ngModel)]="cardModel.number"
+             #cardSub='ngModel'
+             pattern="\d{16}"
+             required>
+      <label class="form-label" for="cardSub">Card Number</label>
+    </div>
+    <div>
+          <span class="text-danger" *ngIf="(cardSub.touched || modelForm.submitted) &&
+          cardSub.errors?.['required']">Card Number is required !</span>
+      <span class="text-danger" *ngIf="(cardSub.touched || modelForm.submitted) &&
+          cardSub.errors?.['pattern']">Please provide a valid card number! </span>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col">
+    <div class="form-outline">
+      <input type="text" id="cardExp" name="expiry date" class="form-control"
+             [(ngModel)]="cardModel.cardExpire"
+             #cardExp='ngModel'
+             pattern="^(0[1-9]|1[0-2])/[0-9]{2}$"
+             required/>
+      <label class="form-label" for="cardExp">Expiry Date</label>
+    </div>
+    <div>
+          <span class="text-danger" *ngIf="(cardExp.touched || modelForm.submitted) &&
+          cardExp.errors?.['required']">Expiry Date is required !</span>
+      <span class="text-danger" *ngIf="(cardExp.touched || modelForm.submitted) &&
+          cardExp.errors?.['pattern']">Please provide a valid Expiry Date! </span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-outline">
+      <input type="text" id="cardCvv" name="cvv" class="form-control" [(ngModel)]="cardModel.cvc"
+             #cardCvv='ngModel'
+             pattern="^\d{3,4}$"
+             required/>
+      <label class="form-label" for="cardCvv">Card CVV/CVC</label>
+    </div>
+    <div>
+          <span class="text-danger" *ngIf="(cardCvv.touched || modelForm.submitted) &&
+          cardCvv.errors?.['required']">CVV is required !</span>
+      <span class="text-danger" *ngIf="(cardCvv.touched || modelForm.submitted) &&
+          cardCvv.errors?.['pattern']">Please provide a valid card cvv! </span>
+    </div>
+  </div>
+</div>

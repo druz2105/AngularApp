@@ -50,7 +50,7 @@ export class AuthService {
   }
 
 
-  private refreshToken(): Observable<boolean> {
+  refreshToken(): Observable<boolean> {
     const refreshToken = this.customLocalStore.getSessionStorage("refreshToken");
     if (!refreshToken) {
       this.router.navigate(["/login"]);

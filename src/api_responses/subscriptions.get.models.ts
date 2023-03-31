@@ -224,6 +224,11 @@ export interface createSubscriptionAPIResponse {
 }
 
 
-export interface checkSubscriptionAPIResponse {
-  subscription_valid: string
+export interface validateSubscriptionAPIResponse {
+  subscriptionValid: string
+}
+
+
+export interface verifySubscriptionAPIResponse {
+  subscriptionStatus: boolean
 }

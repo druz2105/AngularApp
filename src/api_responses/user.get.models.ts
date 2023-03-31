@@ -1,8 +1,12 @@
 export interface LoginAPIResponse {
+
+  userId: number;
   access: string;
   refresh: string;
   firstName: string;
   lastName: string;
+  email: string;
+  subscriptionStatus: string;
 }
 
 export interface RegisterAPIResponse {

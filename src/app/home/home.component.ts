@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {UserDetail} from "../../models/user.models";
 import {AuthService} from "../../services/auth.service";
 import {UserAPIServices} from "../../services/user.services";
 import {CustomLocalStorage} from "../../helpers/custom.storage";
@@ -24,9 +23,5 @@ export class HomeComponent implements OnInit {
 
   get getPanelName() {
     return this.panelName;
-  }
-
-  setPanelName(panelName: string) {
-    this.panelName = panelName;
   }
 }

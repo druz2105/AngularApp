@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {UserDetail} from "../models/user.models";
+import {LoginAPIResponse} from "../api_responses/user.get.models";
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,11 @@ export class CustomLocalStorage {
     return window.sessionStorage.getItem(key)
   }
 
-  storeUserLogin(response: any) {
+  storeUserLogin(response: LoginAPIResponse) {
     this.setSessionStorage('accessToken', response.access);
     this.setSessionStorage('refreshToken', response.refresh);
-    this.setSessionStorage('userId', response.id);
+    this.setSessionStorage('userId', response.userId);
+    this.setSessionStorage('subscriptionStatus', response.subscriptionStatus);
   }
 
 }

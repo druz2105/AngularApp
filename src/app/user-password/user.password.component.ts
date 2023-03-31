@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UserPasswordChange, UserRegister} from "../../models/user.models";
+import {UserPasswordChange} from "../../models/user.models";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";

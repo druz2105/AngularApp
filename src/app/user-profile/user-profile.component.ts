@@ -5,10 +5,9 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {UserAPIServices} from "../../services/user.services";
 import {CustomLocalStorage} from "../../helpers/custom.storage";
-import {HomeComponent} from "../home/home.component";
 import {NgForm} from "@angular/forms";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
-import {StripeDetailsAPIResponse} from "../../api_responses/user.get.models";
+import {CardModel} from "../../models/card.models";
 
 @Component({
   selector: 'app-user-profile',
@@ -16,16 +15,18 @@ import {StripeDetailsAPIResponse} from "../../api_responses/user.get.models";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  private panelName: string = 'stripeDetailsPanel';
+  private panelName: string = 'userProfilePanel';
+  cardPanel: string = 'cardDetails';
 
   user = new UserDetail();
+  cardModel = new CardModel();
 
   stripeDetails: any;
 
   profileImgUrl: string = '';
 
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage, private homeComponent: HomeComponent, private snackBar: CustomSnakbar) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage, private snackBar: CustomSnakbar) {
   }
 
 
@@ -49,8 +50,13 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  setPanelName(panelName: string) {
-    this.homeComponent.setPanelName(panelName)
+  changePanelName(panelName: string) {
+    this.panelName = panelName
+    this.cardPanel = 'cardDetails'
+  }
+
+  changeCardPanel(panelName: string) {
+    this.cardPanel = panelName
   }
 
   selectProfileImage(): void {
@@ -92,6 +98,7 @@ export class UserProfileComponent implements OnInit {
     return this.panelName
   }
 
+
   validateForm(form: NgForm) {
     this.userAPIServices.userUpdateAPI(this.user).subscribe(
       (response) => {
@@ -101,5 +108,9 @@ export class UserProfileComponent implements OnInit {
         this.snackBar.snackBarError(error)
       }
     )
+  }
+
+  changeCard(form: NgForm) {
+
   }
 }

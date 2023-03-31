@@ -1,0 +1,28 @@
+<app-headers></app-headers>
+<form class="m-5" (ngSubmit)="subscriptionForm.valid && validateSubscription(subscriptionForm)"
+      #subscriptionForm="ngForm">
+  <h1 style="color: black; align-content: center">Subscribe</h1>
+  <div class="container" *ngIf="subscriptionPlans.length===0">
+    <p>Plans Not Loaded Add Plans in Database to see data</p>
+  </div>
+  <div class="container">
+    <div class="row">
+      <ng-container *ngFor="let subscriptionObj of subscriptionPlans">
+        <div class="col-md-{{12 / subscriptionPlans.length}}">
+          <div class="card mb-4" [ngClass]="{'selected': selectedCard === subscriptionObj.priceData.id}"
+               (click)="selectCard(subscriptionObj.priceData.id, subscriptionObj.productData.id)">
+            <div class="card-body">
+              <h5 class="card-title">{{subscriptionObj.productData.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${{subscriptionObj.priceData.unitAmount / 100}}/month</h6>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <app-card [modelForm]="subscriptionForm" [cardModel]="subModel.cardDetails"></app-card>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-4"
+            [disabled]="!subscriptionForm.valid || !validPlans.includes(subModel.price_id)">
+      Submit
+    </button>
+  </div>
+</form>

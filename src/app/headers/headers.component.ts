@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserDetail} from "../../models/user.models";
 import {CustomLocalStorage} from "../../helpers/custom.storage";
 import {HomeComponent} from "../home/home.component";
 import {UserAPIServices} from "../../services/user.services";
@@ -16,7 +15,7 @@ export class HeadersComponent implements OnInit {
 
   accessToken = this.customLocalStore.getSessionStorage('accessToken')
 
-  constructor(private customLocalStore: CustomLocalStorage, private homeComponent: HomeComponent, private userAPIServices: UserAPIServices) {
+  constructor(private customLocalStore: CustomLocalStorage, private userAPIServices: UserAPIServices) {
   }
 
   ngOnInit(): void {
@@ -33,8 +32,5 @@ export class HeadersComponent implements OnInit {
   }
 
 
-  setPanelName(panelName: string) {
-    this.homeComponent.setPanelName(panelName)
-  }
 
 }

@@ -4,12 +4,11 @@ import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
 import {CustomLocalStorage} from "../helpers/custom.storage";
 import {
-  checkSubscriptionAPIResponse,
   createSubscriptionAPIResponse,
-  GetSubscriptionsAPIResponse
+  GetSubscriptionsAPIResponse,
+  validateSubscriptionAPIResponse, verifySubscriptionAPIResponse
 } from "../api_responses/subscriptions.get.models";
-import {loadStripe, Card, Token} from '@stripe/stripe-js';
-import {UserSubscription, UserSubscriptionCheck} from "../models/user.models";
+import {UserSubscription, UserSubscriptionCheck} from "../models/subscription.models";
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +24,16 @@ export class SubscriptionsAPIServices implements OnInit {
   }
 
   getSubscriptionPlansData() {
-    return this.http.get<GetSubscriptionsAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_PLANS_API}`,)
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.get<GetSubscriptionsAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_PLANS_API}`, {headers})
   }
 
   createSubscriptionPlansData(userSubscription: UserSubscription) {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
     if (userSubscription.cardDetails.cardExpire) {
       let cardData = {...userSubscription.cardDetails}
       let data = {...userSubscription}
@@ -37,14 +42,25 @@ export class SubscriptionsAPIServices implements OnInit {
       cardData.exp_month = userSubscription.cardDetails.cardExpire?.split('/')[0]
       cardData.exp_year = userSubscription.cardDetails.cardExpire?.split('/')[1]
       data.cardDetails = cardData
-      return this.http.post<createSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CREATE_API}`, data)
+      return this.http.post<createSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CREATE_API}`, data, {headers})
     } else {
-      return this.http.post<createSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CREATE_API}`, userSubscription)
+      return this.http.post<createSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CREATE_API}`, userSubscription, {headers})
     }
   }
 
-  checkSubscriptionPlansData(data: UserSubscriptionCheck) {
-    return this.http.post<checkSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CHECK_API}`, data)
+  validateSubscriptionPlansData(data: UserSubscriptionCheck) {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.post<validateSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_VALIDATE_API}`, data, {headers})
+  }
+
+
+  verifySubscriptionStatus() {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    return this.http.get<verifySubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_VERIFY_API}`, {headers})
   }
 
 
