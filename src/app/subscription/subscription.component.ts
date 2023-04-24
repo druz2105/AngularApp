@@ -30,7 +30,6 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionsAPIServices.getSubscriptionPlansData()
       .subscribe((response) => {
         this.subscriptionPlans = response.data;
-        console.log(this.subscriptionPlans)
         this.validPlans = this.subscriptionPlans.map(el => el.priceData.id)
       }, error => {
         console.log(error)

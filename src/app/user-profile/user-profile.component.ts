@@ -52,7 +52,7 @@ export class UserProfileComponent implements OnInit {
 
   changePanelName(panelName: string) {
     this.panelName = panelName
-    this.cardPanel = 'cardDetails'
+    this.cardPanel = 'cardDetails '
   }
 
   changeCardPanel(panelName: string) {
@@ -69,7 +69,6 @@ export class UserProfileComponent implements OnInit {
         const reader = new FileReader();
 
         reader.onload = () => {
-          console.log(reader.result)
           img.src = reader.result as string;
           const formData = new FormData();
 

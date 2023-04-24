@@ -40,7 +40,12 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login'])
       },
       (error) => {
-        console.error(error);
+        console.error(error.error, "ERROR");
+        if ('email' in error.error) {
+          error.message = error.error.email
+        } else {
+          error.message = "Some error occurred"
+        }
         this.snackBar.snackBarError(error)
       }
     );

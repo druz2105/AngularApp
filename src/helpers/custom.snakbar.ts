@@ -18,7 +18,15 @@ export class CustomSnakbar {
   }
 
   snackBarError(error: any) {
-    return this.snackBar.open('Error' + error.status + ': ' + error.message, 'Close', {
+    if (error.message) {
+      return this.snackBar.open('Error' + error.status + ': ' + error.message, 'Close', {
+        duration: 5000,
+        verticalPosition: 'top',
+        horizontalPosition: 'end',
+        panelClass: ['error-snackbar']
+      });
+    }
+    return this.snackBar.open('Error' + error.status + ': ' + "Error in processing request.", 'Close', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'end',
