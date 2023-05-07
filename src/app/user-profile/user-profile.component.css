@@ -44,16 +44,16 @@
   margin-bottom: 1rem;
 }
 
-.card-details, .subscription-details, .product-details, .price-details {
+.card-details, .subscription-details, .product-details, .price-details .cancel-subscription {
   margin-bottom: 2rem;
 }
 
-.card-details h2, .subscription-details h2, .product-details h2, .price-details h2 {
+.card-details h2, .subscription-details h2, .product-details h2, .price-details h2, .cancel-subscription h2 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
 
-.card-details p, .subscription-details p, .product-details p, .price-details p {
+.card-details p, .subscription-details p, .product-details p, .price-details p, .cancel-subscription p {
   margin-bottom: 0.5rem;
 }
 

@@ -1,9 +1,16 @@
 <app-headers></app-headers>
+<div class="container">
+  <p style="font-weight: bold; color: red; align-content: center">If you have purchased subscription but still seeing
+    this page contact support
+    or check
+    email for any due.</p>
+</div>
 <form class="m-5" (ngSubmit)="subscriptionForm.valid && validateSubscription(subscriptionForm)"
       #subscriptionForm="ngForm">
   <h1 style="color: black; align-content: center">Subscribe</h1>
+  <b>Select Plan To Subscribe</b>
   <div class="container" *ngIf="subscriptionPlans.length===0">
-    <p>Plans Not Loaded Add Plans in Database to see data</p>
+    <p>Plans Not Loaded</p>
   </div>
   <div class="container">
     <div class="row">
@@ -11,9 +18,14 @@
         <div class="col-md-{{12 / subscriptionPlans.length}}">
           <div class="card mb-4" [ngClass]="{'selected': selectedCard === subscriptionObj.priceData.id}"
                (click)="selectCard(subscriptionObj.priceData.id, subscriptionObj.productData.id)">
-            <div class="card-body">
+            <div class="card-body" style="height: 360px; line-break: strict">
               <h5 class="card-title">{{subscriptionObj.productData.name}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">${{subscriptionObj.priceData.unitAmount / 100}}/month</h6>
+              <h6 class="card-subtitle mb-2 text-muted" style="color: #4caf50!important; font-weight: bold!important;">
+                ${{subscriptionObj.priceData.unitAmount / 100}}
+                per {{subscriptionObj.priceData.recurring.intervalCount}} {{subscriptionObj.priceData.recurring.interval}}</h6>
+              <ul *ngFor="let line of subscriptionObj.productData.description.split(',')" class="description-list">
+                <li>{{line}}</li>
+              </ul>
             </div>
           </div>
         </div>

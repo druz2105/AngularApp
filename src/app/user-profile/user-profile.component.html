@@ -117,31 +117,44 @@
           <form (ngSubmit)="cardEditForm.valid && changeCard(cardEditForm)"
                 #cardEditForm="ngForm">
             <app-card [cardModel]="cardModel" [modelForm]="cardEditForm"></app-card>
+            <button type="submit" class="btn btn-primary btn-block mb-4"
+                    [disabled]="!cardEditForm.valid">
+              Submit
+            </button>
           </form>
         </div>
       </div>
-      <div *ngIf="getPanelName()==='subscriptionsDetailsPanel'">
-        <div class="row mb-4 justify-content-center">
-          <div class="col-md-6 bg-white p-5">
-            <div class="welcome-msg pt-3 pb-4">
-              <h4>Card Details</h4>
-            </div>
-            <div class="subscription-details">
-              <h2>Subscription Details</h2>
-              <p>Current Period Start: {{ stripeDetails.subscription.currentPeriodStart }}</p>
-              <p>Current Period End: {{ stripeDetails.subscription.currentPeriodEnd }}</p>
-              <p>Status: {{ stripeDetails.subscription.status }}</p>
-            </div>
-            <div class="product-details">
-              <h2>Product Details</h2>
-              <p>Name: {{ stripeDetails.product.name }}</p>
-            </div>
-            <div class="price-details">
-              <h2>Price Details</h2>
-              <p>Currency: {{ stripeDetails.price.currency }}</p>
-              <p>Unit Amount: {{ stripeDetails.price.unitAmount / 100 }}</p>
-              <p>Interval: {{ stripeDetails.price.recurring.interval }}</p>
-            </div>
+    </div>
+    <div *ngIf="getPanelName()==='subscriptionsDetailsPanel'">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6 bg-white p-5">
+          <div class="subscription-details">
+            <h2>Subscription Details</h2>
+            <p>Current Period
+              End: {{ subscriptionEnd }}</p>
+            <p *ngIf="['trialing'].includes(stripeDetails.subscription.status)">Trialing Period
+              End: {{ subscriptionTrialEnd }}</p>
+            <p>Status: {{ stripeDetails.subscription.status }}</p>
+          </div>
+          <div class="product-details">
+            <h2>Product Details</h2>
+            <p>Name: {{ stripeDetails.product.name }}</p>
+          </div>
+          <div class="price-details">
+            <h2>Price Details</h2>
+            <p>Unit
+              Amount: {{ stripeDetails.price.currency.toUpperCase() }} {{ stripeDetails.price.unitAmount / 100 }}</p>
+            <p>
+              Interval: {{ stripeDetails.price.recurring.intervalCount }} {{ stripeDetails.price.recurring.intervalCount === 1 ? stripeDetails.price.recurring.interval : stripeDetails.price.recurring.interval + "s" }}</p>
+          </div>
+          <div class="cancel-subscription">
+            <button type="button" class="btn btn-primary btn-block mb-4" (click)="cancelSubscription()"
+                    *ngIf="!stripeDetails.subscription.cancelAtPeriodEnd">Cancel
+              Subscription After Current Period End
+            </button>
+            <b style="color: red" *ngIf="stripeDetails.subscription.cancelAtPeriodEnd">
+              Canceling Subscription After Current Period End.
+            </b>
           </div>
         </div>
       </div>

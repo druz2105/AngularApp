@@ -19,7 +19,7 @@ export class CustomSnakbar {
 
   snackBarError(error: any) {
     if (error.message) {
-      return this.snackBar.open('Error' + error.status + ': ' + error.message, 'Close', {
+      return this.snackBar.open('Error' + error.status + ': ' + error.error.message, 'Close', {
         duration: 5000,
         verticalPosition: 'top',
         horizontalPosition: 'end',

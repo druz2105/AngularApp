@@ -25,6 +25,29 @@ export interface GetUserDetailAPIResponse {
   "image": string
 }
 
+export interface StripePlan {
+  id: string;
+  object: string;
+  active: boolean;
+  aggregateUsage: null;
+  amount: number;
+  amountDecimal: string;
+  billingScheme: string;
+  created: number;
+  currency: string;
+  interval: string;
+  intervalCount: number;
+  livemode: boolean;
+  metadata: object;
+  nickname: null | string;
+  product: string;
+  tiersMode: null;
+  transformUsage: null;
+  trialPeriodDays: null | number;
+  usageType: string;
+}
+
+
 export interface StripeDetailsAPIResponse {
   cardDetails: {
     last4: string;
@@ -37,6 +60,9 @@ export interface StripeDetailsAPIResponse {
     currentPeriodStart: number;
     currentPeriodEnd: number;
     status: string;
+    trialEnd: number;
+    plan: StripePlan;
+    cancelATPeriodEnd: boolean
   };
   product: {
     prodId: string;

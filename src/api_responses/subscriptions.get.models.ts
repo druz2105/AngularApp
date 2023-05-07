@@ -12,33 +12,33 @@ interface StripeSubscription {
   id: string;
   object: string;
   application: null | string;
-  application_fee_percent: null | number;
-  automatic_tax: {
+  applicationFeePercent: null | number;
+  automaticTax: {
     enabled: boolean;
   };
-  billing_cycle_anchor: number;
-  billing_thresholds: null | {
-    amount_gte: number;
-    reset_billing_cycle_anchor: boolean;
+  billingCycleAnchor: number;
+  billingThresholds: null | {
+    amountGte: number;
+    resetBillingCycleAnchor: boolean;
   };
-  cancel_at: null | number;
-  cancel_at_period_end: boolean;
-  canceled_at: null | number;
-  cancellation_details: {
+  cancelAt: null | number;
+  cancelAtPeriodEnd: boolean;
+  canceledAt: null | number;
+  cancellationDetails: {
     comment: null | string;
     feedback: null | string;
     reason: null | string;
   };
-  collection_method: string;
+  collectionMethod: string;
   created: number;
   currency: string;
-  current_period_end: number;
-  current_period_start: number;
+  currentPeriodEnd: number;
+  currentPeriodStart: number;
   customer: string;
-  days_until_due: null | number;
-  default_payment_method: null | string;
-  default_source: null | string;
-  default_tax_rates: string[];
+  daysUntilDue: null | number;
+  defaultPaymentMethod: null | string;
+  defaultSource: null | string;
+  defaultTaxRates: string[];
   description: null | string;
   discount: null | {
     coupon: {
@@ -49,87 +49,87 @@ interface StripeSubscription {
     start: number;
     subscription: string;
   };
-  ended_at: null | number;
+  endedAt: null | number;
   items: {
     object: string;
     data: {
       id: string;
       object: string;
-      billing_thresholds: null;
+      billingThresholds: null;
       created: number;
       metadata: Record<string, unknown>;
       price: {
         id: string;
         object: string;
         active: boolean;
-        billing_scheme: string;
+        billingScheme: string;
         created: number;
         currency: string;
-        custom_unit_amount: null | number;
+        customUnitAmount: null | number;
         livemode: boolean;
-        lookup_key: null | string;
+        lookupKey: null | string;
         metadata: Record<string, unknown>;
         nickname: null | string;
         product: string;
         recurring: {
-          aggregate_usage: null | string;
+          aggregateUsage: null | string;
           interval: string;
-          interval_count: number;
-          usage_type: string;
+          intervalCount: number;
+          usageType: string;
         };
-        tax_behavior: string;
-        tiers_mode: null | string;
-        transform_quantity: null;
+        taxBehavior: string;
+        tiersMode: null | string;
+        transformQuantity: null;
         type: string;
-        unit_amount: number;
-        unit_amount_decimal: string;
+        unitAmount: number;
+        unitAmountDecimal: string;
       };
       quantity: number;
       subscription: string;
-      tax_rates: string[];
+      taxRates: string[];
     }[];
-    has_more: boolean;
+    hasMore: boolean;
     url: string;
   };
-  latest_invoice: string;
+  latestInvoice: string;
   livemode: boolean;
   metadata: Record<string, unknown>;
-  next_pending_invoice_item_invoice: null | number;
-  on_behalf_of: null | string;
-  pause_collection: null | {
+  nextPendingInvoiceItemInvoice: null | number;
+  onBehalfOf: null | string;
+  pauseCollection: null | {
     behavior: string;
-    resumes_at: null | number;
+    resumesAt: null | number;
   };
-  payment_settings: {
-    payment_method_options: null | {
+  paymentSettings: {
+    paymentMethodOptions: null | {
       bancontact: {
-        preferred_language: string;
+        preferredLanguage: string;
       };
       card: {
-        request_three_d_secure: string;
+        requestThreeDSecure: string;
       };
     };
-    payment_method_types: null | string[];
-    save_default_payment_method: string;
+    paymentMethodTypes: null | string[];
+    saveDefaultPaymentMethod: string;
   };
-  pending_invoice_item_interval: null | {
+  pendingInvoiceItemInterval: null | {
     interval: string;
-    interval_count: number;
+    intervalCount: number;
   };
-  pending_setup_intent: null | string;
-  pending_update: null;
+  pendingSetupIntent: null | string;
+  pendingUpdate: null;
   schedule: null;
-  start_date: number;
+  startDate: number;
   status: string;
-  test_clock: null | number;
-  transfer_data: null;
-  trial_end: null | number;
-  trial_settings: {
-    end_behavior: {
-      missing_payment_method: string;
+  testClock: null | number;
+  transferData: null;
+  trialEnd: null | number;
+  trialSettings: {
+    endBehavior: {
+      missingPaymentMethod: string;
     };
   };
-  trial_start: null | number;
+  trialStart: null | number;
 }
 
 
@@ -231,4 +231,9 @@ export interface validateSubscriptionAPIResponse {
 
 export interface verifySubscriptionAPIResponse {
   subscriptionStatus: boolean
+}
+
+
+export interface cancelSubscriptionAPIResponse {
+  message: string
 }

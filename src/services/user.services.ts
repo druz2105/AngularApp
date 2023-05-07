@@ -10,6 +10,7 @@ import {
   StripeDetailsAPIResponse
 } from 'src/api_responses/user.get.models';
 import {CustomLocalStorage} from "../helpers/custom.storage";
+import {CardModel} from "../models/card.models";
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,23 @@ export class UserAPIServices {
     const data = {...userPasswordData}
     delete data.confirmPassword
     return this.http.patch(`${environment.rooturl}${AppConstants.USER_PASSWORD_CHANGE_API}`, data, {headers})
+  }
+
+  cardChangeAPI(cardData: CardModel) {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    const data = {...cardData}
+    if (data.cardExpire) {
+      data.exp_month = data.cardExpire?.split('/')[0]
+      data.exp_year = data.cardExpire?.split('/')[1]
+      delete data.cardExpire
+      return this.http.patch(`${environment.rooturl}${AppConstants.USER_CARD_UPDATE_API}`, data, {headers})
+    } else {
+      delete data.cardExpire
+      return this.http.patch(`${environment.rooturl}${AppConstants.USER_CARD_UPDATE_API}`, data, {headers})
+    }
+
   }
 
 }

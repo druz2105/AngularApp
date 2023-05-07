@@ -8,6 +8,8 @@ import {CustomLocalStorage} from "../../helpers/custom.storage";
 import {NgForm} from "@angular/forms";
 import {CustomSnakbar} from "../../helpers/custom.snakbar";
 import {CardModel} from "../../models/card.models";
+import {StripeDetailsAPIResponse} from "../../api_responses/user.get.models";
+import {SubscriptionsAPIServices} from "../../services/subscriptions.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -21,12 +23,23 @@ export class UserProfileComponent implements OnInit {
   user = new UserDetail();
   cardModel = new CardModel();
 
-  stripeDetails: any;
+  stripeDetails: StripeDetailsAPIResponse | any;
+  subscriptionEnd: string = ''
+  subscriptionTrialEnd: string = ''
 
   profileImgUrl: string = '';
 
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private customLocalStore: CustomLocalStorage, private snackBar: CustomSnakbar) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private userAPIServices: UserAPIServices, private subscriptionsAPIServices: SubscriptionsAPIServices, private customLocalStore: CustomLocalStorage, private snackBar: CustomSnakbar) {
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}`
   }
 
 
@@ -43,6 +56,18 @@ export class UserProfileComponent implements OnInit {
     this.userAPIServices.stripeDetailAPI().subscribe(
       (response) => {
         this.stripeDetails = response
+        if (['trialing'].includes(response.subscription.status)) {
+          const date = new Date(response.subscription.trialEnd * 1000)
+          this.subscriptionTrialEnd = this.formatDate(date)
+        }
+        const date = new Date(response.subscription.currentPeriodEnd * 1000)
+        if (["month"].includes(response.subscription.plan.interval)) {
+          date.setMonth(date.getMonth() + response.subscription.plan.intervalCount)
+        } else if (["year"].includes(response.subscription.plan.interval)) {
+          date.setFullYear(date.getFullYear() + response.subscription.plan.intervalCount)
+        }
+        this.subscriptionEnd = this.formatDate(date)
+
       },
       (error) => {
         this.snackBar.snackBarError(error)
@@ -52,7 +77,7 @@ export class UserProfileComponent implements OnInit {
 
   changePanelName(panelName: string) {
     this.panelName = panelName
-    this.cardPanel = 'cardDetails '
+    this.cardPanel = 'cardDetails'
   }
 
   changeCardPanel(panelName: string) {
@@ -94,6 +119,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getPanelName() {
+    console.log("CHECK", this.panelName === 'subscriptionsDetailsPanel')
     return this.panelName
   }
 
@@ -110,6 +136,26 @@ export class UserProfileComponent implements OnInit {
   }
 
   changeCard(form: NgForm) {
+    this.userAPIServices.cardChangeAPI(this.cardModel).subscribe(
+      (response) => {
+        this.snackBar.snackBarSuccess('User Details Changed!')
+      },
+      error => {
+        console.log(error)
+        this.snackBar.snackBarError(error)
+      }
+    )
+  }
 
+  cancelSubscription() {
+    this.subscriptionsAPIServices.cancelSubscription().subscribe(
+      (response) => {
+        this.snackBar.snackBarSuccess('Subscription Cancelled Successfully.')
+      },
+      error => {
+        console.log(error)
+        this.snackBar.snackBarError(error)
+      }
+    )
   }
 }

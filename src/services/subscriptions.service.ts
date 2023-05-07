@@ -4,6 +4,7 @@ import {AppConstants} from 'src/constants/app.constants';
 import {environment} from 'src/constants/environments';
 import {CustomLocalStorage} from "../helpers/custom.storage";
 import {
+  cancelSubscriptionAPIResponse,
   createSubscriptionAPIResponse,
   GetSubscriptionsAPIResponse,
   validateSubscriptionAPIResponse, verifySubscriptionAPIResponse
@@ -61,6 +62,14 @@ export class SubscriptionsAPIServices implements OnInit {
       'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
     });
     return this.http.get<verifySubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_VERIFY_API}`, {headers})
+  }
+
+  cancelSubscription() {
+    const headers = new HttpHeaders({
+      'Authorization': 'JWT ' + this.customLocalStore.getSessionStorage('accessToken'),
+    });
+    console.log(headers)
+    return this.http.patch<cancelSubscriptionAPIResponse>(`${environment.rooturl}${AppConstants.SUBSCRIPTIONS_CANCEL_API}`, {}, {headers})
   }
 
 

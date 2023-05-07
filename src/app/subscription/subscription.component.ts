@@ -53,7 +53,7 @@ export class SubscriptionComponent implements OnInit {
   async subscriptionCheck(data: UserSubscriptionCheck) {
     this.checkCalled = true
     this.subscriptionsAPIServices.validateSubscriptionPlansData(data).subscribe(response => {
-      if (['active', 'trailing'].includes(response.subscriptionValid)) {
+      if (['active', 'trialing'].includes(response.subscriptionValid)) {
         this.router.navigate(['/home'])
 
       } else {
